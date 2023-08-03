@@ -1,0 +1,46 @@
+# Compiled class files
+*.class
+
+# Compiled bytecode
+*.jar
+*.war
+*.ear
+
+# IDE files
+/.idea/
+/.vscode/
+*.iml
+
+# Build directories
+/target/
+/out/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Eclipse specific files
+/.settings/
+/.project
+/.classpath
+
+# Intellij specific files
+*.ipr
+*.iws
+*.idea/
+
+# Maven specific files
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# Gradle specific files
+.gradle/
+build/
