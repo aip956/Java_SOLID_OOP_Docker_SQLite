@@ -21,19 +21,52 @@ I've also added a .gitignore file to prevent certain files from being committed 
 ### Command line:
 First compile:</br> `javac MyMastermind.java GameState.java` </br>
 Run file with default values:</br> `java MyMastermind`</br>
-Run file with flags (input secret and/or tries):</br> `java MyMastermind -c "0234" -t 8`</br>
+ </br>
+<img 
+src="./ScreenCaps/CLInoArgs.png"
+alt="Command Line no Arguments" 
+title="CLI no Args"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
+
+Run file with flags (input secret and/or tries):</br> `java MyMastermind -c "0234" -t 3`</br>
+ </br>
+<img 
+src="./ScreenCaps/CLIwithArgs.png"
+alt="Command Line with Arguments" 
+title="CLI with Args"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
 
 ### Via Docker:
 First compile image:</br> `docker build -t my_mastermind.image .` </br>
+ </br>
+<img 
+src="./ScreenCaps/DockerBuildImage.png"
+alt="Build the Docker Image" 
+title="Build Docker Image"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
 
-(NOTE: Flag -it will allow the scanner input of the guess) </br>
+
+
 
 Run file with default vals:</br> `docker run -it my_mastermind.image` </br>
-Press 'Enter' after entering each guess </br>
-</br>
-Run file with flags (input secret and/or tries):</br> `docker run -it my_mastermind.image -t 3 -c "2456"` </br>
+(NOTE: Flag -it will allow the scanner input of the guess) </br>
 Press 'Enter' after entering each guess </br>
 
+</br>
+Run file with flags (input secret and/or tries):</br>
+(NOTE: Flag -it will allow the scanner input of the guess) </br>
+ `docker run -it my_mastermind.image -t 3 -c "2456"` </br>
+Press 'Enter' after entering each guess </br>
+ </br>
+<img 
+src="./ScreenCaps/DockerRunwithArgs.png"
+alt="Run via Docker with Arguments" 
+title="Docker Run with Args"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
 
 
 ## Installation

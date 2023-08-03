@@ -29,13 +29,13 @@ public class GameState {
         Random num = new Random();
         StringBuilder secretBuilder = new StringBuilder();
         while (secretBuilder.length() < 4) {
-            int int_random = num.nextInt(10);
+            int int_random = num.nextInt(9);
             if (secretBuilder.indexOf(String.valueOf(int_random)) == -1) {
                 secretBuilder.append(String.valueOf(int_random));
             }        
         }
         secret = secretBuilder.toString();
-        System.out.println(secret);
+        // System.out.println(secret);
         return secret;
     }
 
@@ -83,7 +83,7 @@ public class GameState {
     public boolean isValidGuess(String guess) {
         try {
             int guessNum = Integer.valueOf(guess);
-            return guessNum >= 0 && guessNum <= 9999 && guess.length() == 4;
+            return guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
         } catch (NumberFormatException e) {
             return false;
         }

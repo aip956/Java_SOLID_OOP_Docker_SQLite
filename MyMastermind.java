@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class MyMastermind {
     static String secret = "";
-    static int maxAttempts = 10;
+    static int maxAttempts = 5;
 
     public static void main (String[] args) {
         // Determine if there are Command Line arguments
