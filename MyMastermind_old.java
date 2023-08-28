@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 
-public class MyMastermind {
+public class MyMastermind_old {
     static String secret = "";
     static int maxAttempts = 5;
 
@@ -27,13 +27,13 @@ public class MyMastermind {
             }
         } 
         // Declare GameState var
-        GameState gameState;
+        GameState_old gameState;
 
         // Indicate which GameState method depending on if CLI args
         if (!secret.isEmpty()) {
-            gameState = new GameState(secret, maxAttempts);
+            gameState = new GameState_old(secret, maxAttempts);
         } else {
-            gameState = new GameState(maxAttempts);
+            gameState = new GameState_old(maxAttempts);
         }
 
         Scanner scanner = new Scanner(System.in);

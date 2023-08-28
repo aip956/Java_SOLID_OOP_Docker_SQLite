@@ -1,19 +1,19 @@
 import java.util.Random;
 
-public class GameState {
+public class GameState_old {
     String secret;
     Integer maxAttempts;
     Integer attemptsLeft;
 
     // Use this constructor method if no secret was entered
-    public GameState(int maxAttempts) {
+    public GameState_old(int maxAttempts) {
         generateSecret();
         this.maxAttempts = maxAttempts;
         attemptsLeft = maxAttempts;
     }
     
     // Use this constructor method if a secret or attempts was entered
-    public GameState(String secret, int maxAttempts) {
+    public GameState_old(String secret, int maxAttempts) {
         this.secret = secret;
         this.maxAttempts = maxAttempts;
         attemptsLeft = maxAttempts;
