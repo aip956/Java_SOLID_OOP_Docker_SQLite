@@ -2,20 +2,20 @@ import java.util.Random;
 
 public class SecretKeeper extends Player {
     private Game game;
-    private String secretCode;
+    public String secretCode;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
 
     
     public SecretKeeper(Game game, String[] args) {
-        super("SecretKeeper");
-        this.game = game; // Store referece to the Game instance
+        this.game = game;
         if (hasSecretInArgs(args)) {
             secretCode = extractSecretFromArgs(args);
             maxAttempts = extractMaxAttemptsFromArgs(args);
         } else {
             secretCode = generateRandomSecret();
         }
+        System.out.println("SK18 secret: " + secretCode);
     }
 
     private boolean hasSecretInArgs(String[] args) {
@@ -71,8 +71,10 @@ public class SecretKeeper extends Player {
     public String provideFeedback(String guess) {
     // Game logic; secretKeeper will determine well and misplaced
     // And return the feedback
-    
+    System.out.println("SecretKeep73");
+    System.out.println("SK75guess: " + guess);
         if (game.isValidGuess(guess)) {
+            System.out.println("SecretKeep75");
             int wellPlaced = 0;
             int misPlaced = 0;
 
@@ -100,9 +102,9 @@ public class SecretKeeper extends Player {
             attemptsLeft--;
 
             // Print when Round > 0
-            if (attemptsLeft > 0) {
-                System.out.println("Round " + (maxAttempts - attemptsLeft));
-            }
+            // if (attemptsLeft > 0) {
+            //     System.out.println("SKRound " + (maxAttempts - attemptsLeft));
+            // }
             return feedback;
         }
         return "Invalid guess";

@@ -8,39 +8,41 @@ public class Game {
     private int attemptsLeft;
     private Scanner scanner;
 
+
     // class constructor
-    public Game (Guesser guesser, SecretKeeper secretKeeper, String[] args) {
+    public Game (String[] args) {
+        this.scanner = new Scanner(System.in);
         this.secretKeeper = new SecretKeeper(this, args);
-        this.guesser = new Guesser();
+        this.guesser = new Guesser(scanner);
         this.maxAttempts = secretKeeper.maxAttempts;
         this.attemptsLeft = secretKeeper.attemptsLeft;
-        this.scanner = new Scanner(System.in);
+        this.secretCode = secretKeeper.secretCode;
     }
 
     public void startGame() {
-     
-
-        // play round
-
-        if (maxAttempts == attemptsLeft()) {
-            System.out.println("Round " + (maxAttempts - attemptsLeft()));
+        if (maxAttempts == attemptsLeft) {
+            System.out.println("Will you find the secret code?");
+            System.out.println("---");
+            System.out.println("Round " + (maxAttempts - attemptsLeft));
         }
 
         do {
             String guess = guesser.makeGuess();
+            System.out.println("GameLine28");
             if (isValidGuess(guess)) {
-                guesser.makeGuess(guess);
-                String feedback = secretKeeper.provideFeedback(secretCode);
+                System.out.println("GameLine30");
+                // guesser.makeGuess(guess);
+                String feedback = secretKeeper.provideFeedback(guess);
                 System.out.println(feedback);
                 attemptsLeft--;
 
-                if (guesser.determineWinStatus(secretCode)) {
+                if (guess.equals(secretCode)) {
                     System.out.println("Congrats! You did it!");
                     break;
                 }
 
                 if (attemptsLeft > 0) {
-                    System.out.println("Round " + (maxAttempts - attemptsLeft));
+                    System.out.println("GameRound " + (maxAttempts - attemptsLeft));
                 }
             
             } else {
@@ -57,14 +59,21 @@ public class Game {
     }
 
     public boolean isValidGuess(String guess) {
-            try {
-                int guessNum = Integer.valueOf(guess);
-                return guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
-            } catch (NumberFormatException e) {
-                return false;
-            }
-    }
+        try {
+            int guessNum = Integer.valueOf(guess);
+            // boolean grt0 = guessNum >= 0;
+            // boolean less8888 = guessNum <= 8888;
+            // boolean len4 = guess.length()==4;
 
-    
+            // System.out.println("Guesslen4: " + len4); 
+            // System.out.println("Grt0: " + grt0);
+            // System.out.println("Less8888: " + less8888);
+            // boolean allValid = guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
+            // System.out.println("allValid: " + allValid);
+            return guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 }
