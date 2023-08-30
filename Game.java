@@ -20,6 +20,9 @@ public class Game {
     }
 
     public void startGame() {
+        System.out.println("G23 secret: " + secretCode);
+        System.out.println("G23 Mxatt: " + maxAttempts);
+        System.out.println("G23 attLef: " + attemptsLeft);
         if (maxAttempts == attemptsLeft) {
             System.out.println("Will you find the secret code?");
             System.out.println("---");
@@ -28,9 +31,9 @@ public class Game {
 
         do {
             String guess = guesser.makeGuess();
-            System.out.println("GameLine28");
+            // System.out.println("GameLine28");
             if (isValidGuess(guess)) {
-                System.out.println("GameLine30");
+                // System.out.println("GameLine30");
                 // guesser.makeGuess(guess);
                 String feedback = secretKeeper.provideFeedback(guess);
                 System.out.println(feedback);
@@ -42,7 +45,7 @@ public class Game {
                 }
 
                 if (attemptsLeft > 0) {
-                    System.out.println("GameRound " + (maxAttempts - attemptsLeft));
+                    System.out.println("Round " + (maxAttempts - attemptsLeft));
                 }
             
             } else {

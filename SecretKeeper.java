@@ -11,17 +11,31 @@ public class SecretKeeper extends Player {
         this.game = game;
         if (hasSecretInArgs(args)) {
             secretCode = extractSecretFromArgs(args);
-            maxAttempts = extractMaxAttemptsFromArgs(args);
         } else {
             secretCode = generateRandomSecret();
         }
+        if (hasTriesInArgs(args)) {
+            maxAttempts = extractMaxAttemptsFromArgs(args);
+            attemptsLeft = maxAttempts;
+        }
         System.out.println("SK18 secret: " + secretCode);
+        System.out.println("SK19 attempts: " + maxAttempts);
     }
 
     private boolean hasSecretInArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
                 // Search for input secret
             if (args[i].equals("-c") && i < args.length) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasTriesInArgs(String[] args) {
+        for (int i = 0; i < args.length; i++) {
+                // Search for input secret
+            if (args[i].equals("-t") && i < args.length) {
                 return true;
             }
         }
@@ -61,7 +75,7 @@ public class SecretKeeper extends Player {
                     i++;
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid value for -t");
-                    return 10;
+                    return maxAttempts;
                 }
             }
         }
@@ -71,10 +85,10 @@ public class SecretKeeper extends Player {
     public String provideFeedback(String guess) {
     // Game logic; secretKeeper will determine well and misplaced
     // And return the feedback
-    System.out.println("SecretKeep73");
-    System.out.println("SK75guess: " + guess);
+    // System.out.println("SecretKeep73");
+    // System.out.println("SK75guess: " + guess);
         if (game.isValidGuess(guess)) {
-            System.out.println("SecretKeep75");
+            // System.out.println("SecretKeep75");
             int wellPlaced = 0;
             int misPlaced = 0;
 
