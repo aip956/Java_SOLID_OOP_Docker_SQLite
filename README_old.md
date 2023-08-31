@@ -8,27 +8,18 @@ Typically, the user has 10 tries to guess the right pieces and sequence. After e
 
 
 ## Design
-I created this in Java, using Object Oriented Programming. Creating the class structure is challenging for me, and I thought about the 
-nouns I was modelling. It's a game, with two players. I therefore created the following classes:
-MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
+I created this in Java, using Object Oriented Programming. I created a class Mastermind that holds the command-line inputs and user interactions. It is the entry point for the program. When the program is invoked (i.e.: `java MyMastermind -c "0234" -t 15`), the main method in the MyMastermind class is executed.
 
-Game: Starts the game. Has the Guesser create a guess, and the secretKeeper provide the feedback. It determines if the guess is valid, and if the guess wins. It tracks the Round, and indicates if too many tries are exceeded.
+In the main method of "MyMastermind" class, I declare a variable "gameState" of type "GameState". This object accesses the methods and properties defined in the "GameState" class. This will manage the game functionality (eg increment the round, calculate well-placed and misplaced pieces, etc.).
 
-Player: Abstract class; SecretKeeper and Guesser will extend from Player. They will both access the guessedCode attribute, and the abstract class allows definition and sharing of methods/attributes. The subclasses are inheriting from solely one class in this case, and the makeGuess method should be the default implementation, so an abstract class seemed suitable. 
-
-SecretKeeper: Extends from Player; it determines if a secret and/or max attempts was input in args. If not, it creates a secret and/or defaults the attempts. It provides the feedback (well-placed and misplaced pieces) to the Guesser.
-
-Guesser: Extends from Player; it inputs the guess.
-
-
-I've also added Dockerfile to allow a user to run my application on any system that supports Docker.
+I've also added Dockerfile to allowa a user to run my application on any system that supports Docker.
 
 I've also added a .gitignore file to prevent certain files from being committed to the git repository. This will help keep the repository clean and focused.
 
 
 ## To run
 ### Command line:
-First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java` </br>
+First compile:</br> `javac MyMastermind.java GameState.java` </br>
 Run file with default values:</br> `java MyMastermind`</br>
  </br>
 <img 

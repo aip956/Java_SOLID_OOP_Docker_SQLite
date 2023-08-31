@@ -8,9 +8,8 @@ public class Guesser extends Player {
     // constructor
     public Guesser(Scanner scanner) {
         this.scanner = scanner;
-
     }
-
+    // takes in the input guess
     public String makeGuess() {
         guessedCode = scanner.nextLine();
         return guessedCode;

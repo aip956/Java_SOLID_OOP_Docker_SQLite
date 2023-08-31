@@ -20,21 +20,18 @@ public class Game {
     }
 
     public void startGame() {
-        System.out.println("G23 secret: " + secretCode);
-        System.out.println("G23 Mxatt: " + maxAttempts);
-        System.out.println("G23 attLef: " + attemptsLeft);
+        // Prompts to start game
         if (maxAttempts == attemptsLeft) {
             System.out.println("Will you find the secret code?");
             System.out.println("---");
             System.out.println("Round " + (maxAttempts - attemptsLeft));
         }
-
+        // Play game; Guesser makes guess
+        // Game determines if guess is valid and wins, tracks Round, determins if loses
         do {
             String guess = guesser.makeGuess();
             // System.out.println("GameLine28");
             if (isValidGuess(guess)) {
-                // System.out.println("GameLine30");
-                // guesser.makeGuess(guess);
                 String feedback = secretKeeper.provideFeedback(guess);
                 System.out.println(feedback);
                 attemptsLeft--;
@@ -60,19 +57,10 @@ public class Game {
         
         scanner.close();
     }
-
+    // Method to check if guess is four nums 0 - 8
     public boolean isValidGuess(String guess) {
         try {
             int guessNum = Integer.valueOf(guess);
-            // boolean grt0 = guessNum >= 0;
-            // boolean less8888 = guessNum <= 8888;
-            // boolean len4 = guess.length()==4;
-
-            // System.out.println("Guesslen4: " + len4); 
-            // System.out.println("Grt0: " + grt0);
-            // System.out.println("Less8888: " + less8888);
-            // boolean allValid = guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
-            // System.out.println("allValid: " + allValid);
             return guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
         } catch (NumberFormatException e) {
             return false;

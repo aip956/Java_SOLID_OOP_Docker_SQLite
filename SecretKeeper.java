@@ -6,7 +6,9 @@ public class SecretKeeper extends Player {
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
 
-    
+    // SecretKeeper will determine if there is a secret and/or max attempts
+    // in the CLI args. If not, it will create a secret and/or default
+    // the max attempts
     public SecretKeeper(Game game, String[] args) {
         this.game = game;
         if (hasSecretInArgs(args)) {
@@ -18,10 +20,11 @@ public class SecretKeeper extends Player {
             maxAttempts = extractMaxAttemptsFromArgs(args);
             attemptsLeft = maxAttempts;
         }
-        System.out.println("SK18 secret: " + secretCode);
-        System.out.println("SK19 attempts: " + maxAttempts);
+        // System.out.println("SK18 secret: " + secretCode);
+        // System.out.println("SK19 attempts: " + maxAttempts);
     }
 
+    // boolean to indicate if the args contains a secret
     private boolean hasSecretInArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
                 // Search for input secret
@@ -31,7 +34,7 @@ public class SecretKeeper extends Player {
         }
         return false;
     }
-
+    // boolean to indicate if the args contains max attempts
     private boolean hasTriesInArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
                 // Search for input secret
@@ -41,7 +44,7 @@ public class SecretKeeper extends Player {
         }
         return false;
     }
-
+    // extract the secret from args
     public String extractSecretFromArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
             // Search for input secret
@@ -52,7 +55,7 @@ public class SecretKeeper extends Player {
         }
         return secretCode;
     }
-    
+    // generate a random secret if one was not included in args
     private String generateRandomSecret() {
         Random num = new Random();
         StringBuilder secretBuilder = new StringBuilder();
@@ -66,7 +69,7 @@ public class SecretKeeper extends Player {
         // System.out.println(secret);
         return secretCode;
     }
-
+    // extract max attempts from args
     private int extractMaxAttemptsFromArgs(String[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-t") && i < args.length) {
@@ -81,12 +84,8 @@ public class SecretKeeper extends Player {
         }
         return maxAttempts;
     }
-
+    // Output the well-placed and mis-placed pieces, and/or win
     public String provideFeedback(String guess) {
-    // Game logic; secretKeeper will determine well and misplaced
-    // And return the feedback
-    // System.out.println("SecretKeep73");
-    // System.out.println("SK75guess: " + guess);
         if (game.isValidGuess(guess)) {
             // System.out.println("SecretKeep75");
             int wellPlaced = 0;
