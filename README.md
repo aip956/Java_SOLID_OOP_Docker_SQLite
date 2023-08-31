@@ -10,6 +10,7 @@ Typically, the user has 10 tries to guess the right pieces and sequence. After e
 ## Design
 I created this in Java, using Object Oriented Programming. Creating the class structure is challenging for me, and I thought about the 
 nouns I was modelling. It's a game, with two players. I therefore created the following classes:
+
 MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
 
 Game: Starts the game. Has the Guesser create a guess, and the secretKeeper provide the feedback. It determines if the guess is valid, and if the guess wins. It tracks the Round, and indicates if too many tries are exceeded.
