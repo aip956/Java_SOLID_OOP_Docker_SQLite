@@ -12,7 +12,9 @@ public class Game {
     // class constructor
     public Game (String[] args) {
         this.scanner = new Scanner(System.in);
-        this.secretKeeper = new SecretKeeper(this, args);
+        System.out.println("Enter your name: ");
+        String playerName = scanner.nextLine();
+        this.secretKeeper = new SecretKeeper(this, playerName);
         this.guesser = new Guesser(scanner);
         this.maxAttempts = secretKeeper.maxAttempts;
         this.attemptsLeft = secretKeeper.attemptsLeft;

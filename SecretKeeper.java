@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class SecretKeeper extends Player {
     private Game game;
+    private String playerName;
     public String secretCode;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
@@ -20,9 +21,9 @@ public class SecretKeeper extends Player {
     Have var for num tries max
 
     */ 
-    public SecretKeeper(Game game, String[] args) {
+    public SecretKeeper(Game game, String playerName) {
         this.game = game;
-        this.secretGenerated = false; // new var for API
+        // this.secretGenerated = false; // new var for API
         secretCode = generateRandomSecret();
        
     }
@@ -43,7 +44,7 @@ public class SecretKeeper extends Player {
     
             secretCode = response.toString().trim();
             System.out.println("Secret from API: " + secretCode);
-            secretGenerated = true;
+            // secretGenerated = true;
         } catch (IOException e) {
             e.printStackTrace(); // Handle error
         }
