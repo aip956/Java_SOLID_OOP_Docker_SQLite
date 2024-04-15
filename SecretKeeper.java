@@ -1,4 +1,4 @@
-// import java.util.Random;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,11 +10,14 @@ public class SecretKeeper extends Player {
     public String secretCode;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
-    private boolean secretGenerated; // new var for API
+    // new var for API
+    private boolean secretGenerated; 
 
-    // SecretKeeper will determine if there is a secret and/or max attempts
-    // in the CLI args. If not, it will create a secret and/or default
-    // the max attempts
+    /* 
+    Remove CLI for secret and num tries
+    Have var for num tries max
+
+    */ 
     public SecretKeeper(Game game, String[] args) {
         this.game = game;
         this.secretGenerated = false; // new var for API
@@ -68,7 +71,7 @@ public class SecretKeeper extends Player {
             URL url = new URL("https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-
+    
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuilder response = new StringBuilder();
             String line;
@@ -76,14 +79,15 @@ public class SecretKeeper extends Player {
                 response.append(line);
             }
             reader.close();
+    
+            secretCode = response.toString().trim();
+            System.out.println("Secret from API: " + secretCode);
+            secretGenerated = true;
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle error
         }
-
-        secretCode = response.toString().trim();
-        secretGenerated = true;
-    } catch (IOException e) {
-        e.printStackTrace(); // Handle error
+        return secretCode; // Return secret code generated
     }
-}
 
 
 
@@ -153,8 +157,8 @@ public class SecretKeeper extends Player {
         }
         return "Invalid guess";
     }
-    
 }
+
     
 
 
