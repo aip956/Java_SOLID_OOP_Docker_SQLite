@@ -6,11 +6,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SecretKeeper extends Player {
     private Game game;
     private String playerName;
     public String secretCode;
+    private List<String> guesses;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
     // new var for API
@@ -23,8 +26,10 @@ public class SecretKeeper extends Player {
     */ 
     public SecretKeeper(Game game, String playerName) {
         this.game = game;
+        this.playerName = playerName;
         // this.secretGenerated = false; // new var for API
-        secretCode = generateRandomSecret();
+        this.secretCode = generateRandomSecret();
+        this.guesses = new ArrayList<>();
        
     }
 
@@ -53,6 +58,7 @@ public class SecretKeeper extends Player {
 
     public String provideFeedback(String guess) {
         if (game.isValidGuess(guess)) {
+            guesses.add(guess); // Add guess to list of guesses
             int wellPlaced = 0;
             int misPlaced = 0;
             Map<Character, Integer> secretCount = new HashMap<>();
@@ -91,6 +97,14 @@ public class SecretKeeper extends Player {
             return feedback;
         }
         return "Invalid guess";
+    }
+
+    // Save data to database
+    public void saveGameDataTo Database() {
+        GameData = new GameData();
+        gameData.setPlayerName(playerName);
+        gameData.setSecretCode(secretCode);
+        gameData.setGuesses(guesses);
     }
 }
 
