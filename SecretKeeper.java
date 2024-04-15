@@ -11,22 +11,23 @@ import java.util.List;
 
 public class SecretKeeper extends Player {
     private Game game;
-    private String playerName;
+    private Player player;
+    // private String playerName;
     public String secretCode;
     private List<String> guesses;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
     // new var for API
-    private boolean secretGenerated; 
+    // private boolean secretGenerated; 
 
     /* 
     Remove CLI for secret and num tries
     Have var for num tries max
 
     */ 
-    public SecretKeeper(Game game, String playerName) {
+    public SecretKeeper(Game game, Player player) {
         this.game = game;
-        this.playerName = playerName;
+        this.player = player;
         // this.secretGenerated = false; // new var for API
         this.secretCode = generateRandomSecret();
         this.guesses = new ArrayList<>();
@@ -102,9 +103,18 @@ public class SecretKeeper extends Player {
     // Save data to database
     public void saveGameDataToDatabase() {
         GameData = new GameData();
-        gameData.setPlayerName(playerName);
+        gameData.setPlayerName(player.getPlayerName);
+        gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
+        gameData.setSolved(attemptsLeft > 0);
+        gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
         gameData.setSecretCode(secretCode);
         gameData.setGuesses(guesses);
+
+        try {
+            gameDataDAO.saveGameData(gameData);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Handle db error
+        }
     }
 }
 
