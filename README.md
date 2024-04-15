@@ -87,3 +87,14 @@ The Mastermind game requires the user to guess the secret code composed of four 
 
 
 
+Create db and tables
+sqlite3 your_database_name.db
+CREATE TABLE game_data (
+    game_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    player_name TEXT,
+    rounds_to_solve INTEGER,
+    solved BOOLEAN,
+    timestamp TIMESTAMP,
+    secret_code TEXT,
+    guesses TEXT
+);

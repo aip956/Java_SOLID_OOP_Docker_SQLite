@@ -100,7 +100,7 @@ public class SecretKeeper extends Player {
     }
 
     // Save data to database
-    public void saveGameDataTo Database() {
+    public void saveGameDataToDatabase() {
         GameData = new GameData();
         gameData.setPlayerName(playerName);
         gameData.setSecretCode(secretCode);
