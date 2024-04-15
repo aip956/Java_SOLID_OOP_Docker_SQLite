@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ import java.util.List;
 public class SecretKeeper extends Player {
     private Game game;
     private Player player;
-    // private String playerName;
     public String secretCode;
     private List<String> guesses;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
-    // new var for API
-    // private boolean secretGenerated; 
+    private GameData gameData;
+    private GameDataDAO gameDataDAO;
+
 
     /* 
     Remove CLI for secret and num tries
@@ -28,7 +29,6 @@ public class SecretKeeper extends Player {
     public SecretKeeper(Game game, Player player) {
         this.game = game;
         this.player = player;
-        // this.secretGenerated = false; // new var for API
         this.secretCode = generateRandomSecret();
         this.guesses = new ArrayList<>();
        
@@ -102,8 +102,8 @@ public class SecretKeeper extends Player {
 
     // Save data to database
     public void saveGameDataToDatabase() {
-        GameData = new GameData();
-        gameData.setPlayerName(player.getPlayerName);
+        gameData = new GameData();
+        gameData.setPlayerName(player.getPlayerName());
         gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
         gameData.setSolved(attemptsLeft > 0);
         gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import GameData.GameDataDAO;
+import GameData.*;
 
 public class Game {
     private Guesser guesser;
