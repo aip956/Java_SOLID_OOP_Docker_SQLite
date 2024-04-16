@@ -1,12 +1,13 @@
 import java.sql.SQLException;
-import GameData.*;
+import com.example.GameData.GameDataDAO;
+import com.example.GameData.SQLiteGameDataDAO;
 
 public class MyMastermind {
     public static void main(String[] args) {
         // db path to save
         String dbPath = "MM_Reach.db";
-        // Instantiate a Player
-        Player player =  new Player();
+        // Instantiate a concrete subclass of Player
+        Guesser player =  new Guesser();
 
         // create and start game
         GameData gameData = new GameData();

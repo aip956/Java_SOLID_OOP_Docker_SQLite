@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.GameData.GameDataDAO;
+import com.example.GameData.SQLiteGameDataDAO;
 
 public class SecretKeeper extends Player {
     private Game game;
@@ -26,9 +29,9 @@ public class SecretKeeper extends Player {
     Have var for num tries max
 
     */ 
-    public SecretKeeper(Game game, Player player) {
+    public SecretKeeper(Game game, Player playerName) {
         this.game = game;
-        this.player = player;
+        this.playerName = playerName;
         this.secretCode = generateRandomSecret();
         this.guesses = new ArrayList<>();
        
@@ -100,10 +103,12 @@ public class SecretKeeper extends Player {
         return "Invalid guess";
     }
 
+
     // Save data to database
     public void saveGameDataToDatabase() {
         gameData = new GameData();
-        gameData.setPlayerName(player.getPlayerName());
+        String playerName = player.getPlayerName();
+        gameData.setPlayerName(playerName);
         gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
         gameData.setSolved(attemptsLeft > 0);
         gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
@@ -117,7 +122,3 @@ public class SecretKeeper extends Player {
         }
     }
 }
-
-    
-
-

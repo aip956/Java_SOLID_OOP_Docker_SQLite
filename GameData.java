@@ -1,9 +1,13 @@
+
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameData implements Serializable {
@@ -85,15 +89,15 @@ public class GameData implements Serializable {
         this.guesses = guesses;
     }
 
-
+// Dat Access Object (DAO) interface; allows games to be pulled by playerName and solved
     public interface GameDataDAO {
         void saveGameData(GameData gameData) throws SQLException; // Save a game's data to db
         List<GameData> getGamesByPlayer(String playerName) throws SQLException; // Retrieves games by a specific player
-        List<GameData> getGamesSolvedWithinRounds(int rounds) throws SQLException; // Retrieves games solved within a spec. num of rounds
+        // List<GameData> getGamesSolvedWithinRounds(int rounds) throws SQLException; // Retrieves games solved within a spec. num of rounds
         List<GameData> getGamesBySolved(boolean solved) throws SQLException; // Retrieves games based on solved or not
-        List<GameData> getGamesByTime(Timestamp timestamp) throws SQLException; // Retrieves games played at a spec timestamp
-        List<GameData> getGamesBySecret(String secretCode) throws SQLException; // Retrieves games with a spec secret code
-        List<GameData> getGamesByGuesses(List<String> guesses) throws SQLException; // Retrieves games based on the list of guesses
+        // List<GameData> getGamesByTime(Timestamp timestamp) throws SQLException; // Retrieves games played at a spec timestamp
+        // List<GameData> getGamesBySecret(String secretCode) throws SQLException; // Retrieves games with a spec secret code
+        // List<GameData> getGamesByGuesses(List<String> guesses) throws SQLException; // Retrieves games based on the list of guesses
     }
 
     public class SQLiteGameDataDAO implements GameDataDAO {
@@ -108,13 +112,13 @@ public class GameData implements Serializable {
 
         @Override
         public void saveGameData(GameData gameData) throws SQLException {
-            String sql = "INSERT INTO game_data (
-                player_name, 
-                rounds_to_solve,
-                solved,
-                timestamp,
-                secret_code,
-                guesses) " + 
+            String sql = "INSERT INTO game_data (" +
+                "player_name, " +
+                "rounds_to_solve, " +
+                "solved, " +
+                "timestamp, " +
+                "secret_code, " +
+                "guesses) " + 
                 "VALUES (?, ?, ?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, gameData.getPlayerName());
@@ -126,6 +130,42 @@ public class GameData implements Serializable {
                 statement.setString(6, String.join(",", gameData.getGuesses()));
                 statement.executeUpdate(); // Execute SQL query
             }
+        }
+
+        @Override
+        public List<GameData> getGamesByPlayer(String playerName) throws SQLException {
+            List<GameData> games = new ArrayList<>();
+            String sql = "SELECT * FROM game_data WHERE player_name = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, playerName);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    int gameID = resultSet.getInt("game_id");
+                    int roundsToSolve = resultSet.getInt("rounds_to_solve");
+                    boolean solved = resultSet.getBoolean("solved");
+                    Timestamp timestamp = resultSet.getTimestamp("timestamp");
+                    String secretCode = resultSet.getString("secret_code");
+                    String guessesString = resultSet.getString("guesses");
+                    List<String> guesses = new ArrayList<>();
+                    if (guessesString != null) {
+                        String[] guessArray = guessesString.split(",");
+                        for (String guess : guessArray) {
+                            guesses.add(guess);
+                        }
+                    }
+                    GameData gameData = new GameData(gameID, playerName, roundsToSolve, solved, timestamp, secretCode, guesses);
+                    games.add(gameData);
+                }
+            }
+            return games;
+        }
+
+        @Override
+        public List<GameData> getGamesBySolved(boolean solved) throws SQLException {
+            List<GameData> games = new ArrayList<>();
+            // add in logic
+            return games;
         }
     }
 }

@@ -29,7 +29,7 @@ I've also added a .gitignore file to prevent certain files from being committed 
 
 ## To run
 ### Command line:
-First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java` </br>
+First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java GameData.java` </br>
 Run file with default values:</br> `java MyMastermind`</br>
  </br>
 <img 

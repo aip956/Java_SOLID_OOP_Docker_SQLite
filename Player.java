@@ -1,12 +1,8 @@
 public abstract class Player {
     protected String guessedCode;
+    protected String playerName;
 
     public void makeGuess(String guess) {
         guessedCode = guess;
     }
-   
-// getter method for future extendability
-    // public String getGuessedCode() {
-    //     return guessedCode;
-    // }
 }
