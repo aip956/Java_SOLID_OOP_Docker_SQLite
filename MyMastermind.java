@@ -1,23 +1,29 @@
 import java.sql.SQLException;
-import com.example.GameData.GameDataDAO;
-import com.example.GameData.SQLiteGameDataDAO;
+import java.util.Scanner;
 
 public class MyMastermind {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         // db path to save
         String dbPath = "MM_Reach.db";
-        // Instantiate a concrete subclass of Player
-        Guesser player =  new Guesser();
 
-        // create and start game
+        // Create data-related objects:
         GameData gameData = new GameData();
-        Game game = new Game(player, gameData);
+        SQLiteGameDataDAO dao = new SQLiteGameDataDAO(dbPath);
+
+        // Create game instance and necessary components:
+        Guesser guesser = new Guesser(scanner);
+        Game game = new Game(guesser, gameData, dao);
+
+        // Start game
         game.startGame();
+
+        // Close scanner
+        scanner.close();
 
         // Save to the database
         try {
-            // Create SQLIteGameDataDAO object
-            SQLiteGameDataDAO dao = new SQLiteGameDataDAO(dbPath);
             // Save game data to the db
             dao.saveGameData(gameData);
             System.out.println("Game data saved");

@@ -10,31 +10,30 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.GameData.GameDataDAO;
-import com.example.GameData.SQLiteGameDataDAO;
+
+
 
 public class SecretKeeper extends Player {
     private Game game;
-    private Player player;
+
     public String secretCode;
     private List<String> guesses;
     public int maxAttempts = 5;
     public int attemptsLeft = maxAttempts;
     private GameData gameData;
-    private GameDataDAO gameDataDAO;
-
+    private GameData.GameDataDAO gameDataDAO;
+  
 
     /* 
     Remove CLI for secret and num tries
     Have var for num tries max
 
     */ 
-    public SecretKeeper(Game game, Player playerName) {
+    public SecretKeeper(Game game, String playerName) {
         this.game = game;
-        this.playerName = playerName;
+        setPlayerName(playerName);
         this.secretCode = generateRandomSecret();
         this.guesses = new ArrayList<>();
-       
     }
 
     private String generateRandomSecret() {
@@ -106,9 +105,12 @@ public class SecretKeeper extends Player {
 
     // Save data to database
     public void saveGameDataToDatabase() {
-        gameData = new GameData();
-        String playerName = player.getPlayerName();
-        gameData.setPlayerName(playerName);
+        if (gameData == null) {
+            gameData = new GameData();
+        }
+        
+        // String playerName = getPlayerName();
+        gameData.setPlayerName(getPlayerName());
         gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
         gameData.setSolved(attemptsLeft > 0);
         gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));

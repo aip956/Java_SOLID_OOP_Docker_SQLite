@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import GameData.*;
+// import GameData.GameDataDAO;
 
 
 public class Game {
@@ -9,20 +9,23 @@ public class Game {
     private int maxAttempts;
     private int attemptsLeft;
     private Scanner scanner;
-    private GameDataDAO gameDataDAO;
+    private GameData gameData;
+    private GameData.GameDataDAO gameDataDAO;
 
 
     // class constructor
-    public Game (Player player, GameDataDAO gameDataDAO) {
+    public Game (Guesser guesser, GameData gameData, GameData.GameDataDAO gameDataDAO) {
         this.scanner = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String playerName = scanner.nextLine();
         this.secretKeeper = new SecretKeeper(this, playerName);
         this.guesser = new Guesser(scanner);
+        this.gameData = gameData;
+        this.gameDataDAO = gameDataDAO;
         this.maxAttempts = secretKeeper.maxAttempts;
         this.attemptsLeft = secretKeeper.attemptsLeft;
         this.secretCode = secretKeeper.secretCode;
-        this.gameDataDAO = gameDataDAO;
+        
     }
 
     public void startGame() {
