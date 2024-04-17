@@ -29,9 +29,15 @@ I've also added a .gitignore file to prevent certain files from being committed 
 
 ## To run
 ### Command line:
-First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java GameData.java` </br>
+First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java GameData.java` 
+
+To compile with JDBC:
+`Antheas-MBP:MM_JavaReachChallenge antheaip$ `javac -cp ".:lib/sqlite-jdbc-3.45.3.0.jar" Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java GameData.java`
+</br>
+
 Run file with default values:</br> `java MyMastermind`</br>
  </br>
+ java -cp ".:lib/sqlite-jdbc-3.45.3.0.jar" MyMastermind
 <img 
 src="./ScreenCaps/CLInoArgs.png"
 alt="Command Line no Arguments" 

@@ -1,5 +1,3 @@
-
-
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -100,8 +98,15 @@ public class GameData implements Serializable {
         // List<GameData> getGamesByGuesses(List<String> guesses) throws SQLException; // Retrieves games based on the list of guesses
     }
 
-    public class SQLiteGameDataDAO implements GameDataDAO {
+    public static class SQLiteGameDataDAO implements GameDataDAO {
         private Connection connection;
+        static {
+            try {
+                Class.forName("org.sqlite.JDBC");
+            } catch (ClassNotFoundException e) {
+                System.err.println("Could not init JDBC driver - driver not found");
+            }
+        }
             
         // Constructor to init the connection
         public SQLiteGameDataDAO(String dbPath) throws SQLException {
