@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class GameData implements Serializable {
     private int gameID;
@@ -18,7 +19,9 @@ public class GameData implements Serializable {
     private List<String> guesses;
 
     // Constructor
-    public GameData() {}
+    public GameData() {
+        this.guesses = new ArrayList<>(); // Ensure list is never null
+    }
 
     public GameData(int gameID, String playerName, int roundsToSolve, boolean solved, Timestamp timestamp, 
     String secretCode, List<String> guesses) {
@@ -28,7 +31,7 @@ public class GameData implements Serializable {
         this.solved = solved;
         this.timestamp = timestamp;
         this.secretCode = secretCode;
-        this.guesses = guesses;
+        this.guesses = (guesses == null) ? new ArrayList<>() : guesses; // Safely handle null input list
     }
     // Getters, setters
     public int getGameID() {
@@ -132,7 +135,8 @@ public class GameData implements Serializable {
                 statement.setTimestamp(4, gameData.getTimestamp());
                 statement.setString(5, gameData.getSecretCode());
                 // Convert the list of guesses to a single string
-                statement.setString(6, String.join(",", gameData.getGuesses()));
+                String guessesString = (gameData.getGuesses() != null) ? String.join(",", gameData.getGuesses()) : "";
+                statement.setString(6, guessesString);
                 statement.executeUpdate(); // Execute SQL query
             }
         }
@@ -155,9 +159,7 @@ public class GameData implements Serializable {
                     List<String> guesses = new ArrayList<>();
                     if (guessesString != null) {
                         String[] guessArray = guessesString.split(",");
-                        for (String guess : guessArray) {
-                            guesses.add(guess);
-                        }
+                        Collections.addAll(guesses, guessArray);
                     }
                     GameData gameData = new GameData(gameID, playerName, roundsToSolve, solved, timestamp, secretCode, guesses);
                     games.add(gameData);

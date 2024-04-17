@@ -89,8 +89,8 @@ public class SecretKeeper extends Player {
             }
             // If all pieces are well-placed, winner
             if (wellPlaced == 4) {
-                System.out.println("Congrats! You did it!");
-                System.exit(0);
+                System.out.println("Congrats! You did it! I'm SK.java");
+                // System.exit(0);
             }
             
             String feedback = "Well placed pieces: " + wellPlaced + "\n";

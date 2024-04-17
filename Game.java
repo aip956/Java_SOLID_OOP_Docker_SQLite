@@ -46,7 +46,7 @@ public class Game {
                 attemptsLeft--;
 
                 if (guess.equals(secretCode)) {
-                    System.out.println("Congrats! You did it!");
+                    System.out.println("Congrats! You did it! I'm the Game.java");
                     break;
                 }
 
