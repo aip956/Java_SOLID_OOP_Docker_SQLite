@@ -101,26 +101,4 @@ public class SecretKeeper extends Player {
         }
         return "Invalid guess";
     }
-
-
-    // Save data to database
-    public void saveGameDataToDatabase() {
-        if (gameData == null) {
-            gameData = new GameData();
-        }
-        
-        // String playerName = getPlayerName();
-        gameData.setPlayerName(getPlayerName());
-        gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
-        gameData.setSolved(attemptsLeft > 0);
-        gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        gameData.setSecretCode(secretCode);
-        gameData.setGuesses(guesses);
-
-        try {
-            gameDataDAO.saveGameData(gameData);
-        } catch (SQLException e) {
-            e.printStackTrace(); // Handle db error
-        }
-    }
 }

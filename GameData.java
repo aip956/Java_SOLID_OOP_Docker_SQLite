@@ -8,8 +8,13 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GameData implements Serializable {
+    // debugging saving issue
+    private static final Logger logger = LoggerFactory.getLogger(GameData.class);
+
     private int gameID;
     private String playerName;
     private int roundsToSolve;
@@ -40,6 +45,7 @@ public class GameData implements Serializable {
 
     public void setGameID (int gameID) {
         this.gameID = gameID;
+        logger.debug("48GameIDD: {}", gameID);
     }
 
     public String getPlayerName() {
@@ -48,6 +54,7 @@ public class GameData implements Serializable {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+        logger.debug("57playerName: {}", playerName);
     }
 
     public int getRoundsToSolve() {
@@ -56,6 +63,7 @@ public class GameData implements Serializable {
 
     public void setRoundsToSolve(int roundsToSolve) {
         this.roundsToSolve = roundsToSolve;
+        logger.debug("66roundsToSolve: {}", roundsToSolve);
     }
 
     public boolean isSolved() {
@@ -64,6 +72,7 @@ public class GameData implements Serializable {
 
     public void setSolved(boolean solved) {
         this.solved = solved;
+        logger.debug("75solved: {}", solved);
     }
 
     public Timestamp getTimestamp() {
@@ -72,6 +81,7 @@ public class GameData implements Serializable {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+        logger.debug("84timestamp: {}", timestamp);
     }
 
     public String getSecretCode() {
@@ -80,6 +90,7 @@ public class GameData implements Serializable {
 
     public void setSecretCode(String secretCode) {
         this.secretCode = secretCode;
+        logger.debug("93secretCode: {}", secretCode);
     }
 
     public List<String> getGuesses() {
@@ -88,6 +99,7 @@ public class GameData implements Serializable {
 
     public void setGuesses(List<String> guesses) {
         this.guesses = guesses;
+        logger.debug("102guesses: {}", guesses);
     }
 
 // Dat Access Object (DAO) interface; allows games to be pulled by playerName and solved

@@ -111,3 +111,14 @@ CREATE TABLE game_data (
     secret_code TEXT,
     guesses TEXT
 );
+
+to view data,
+enter SQLite interactive shell
+sqlite3 MM_Reach.db
+
+view tables:
+.tables
+
+view data:
+SELECT * FROM game_data;
+

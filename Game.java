@@ -1,5 +1,6 @@
 import java.util.Scanner;
-// import GameData.GameDataDAO;
+import java.sql.Timestamp;
+import java.sql.SQLException;
 
 
 public class Game {
@@ -20,8 +21,9 @@ public class Game {
         String playerName = scanner.nextLine();
         this.secretKeeper = new SecretKeeper(this, playerName);
         this.guesser = new Guesser(scanner);
-        this.gameData = gameData;
+        this.gameData = gameData == null ? new GameData() : gameData;
         this.gameDataDAO = gameDataDAO;
+        this.gameData.setPlayerName(playerName);
         this.maxAttempts = secretKeeper.maxAttempts;
         this.attemptsLeft = secretKeeper.attemptsLeft;
         this.secretCode = secretKeeper.secretCode;
@@ -47,6 +49,7 @@ public class Game {
 
                 if (guess.equals(secretCode)) {
                     System.out.println("Congrats! You did it! I'm the Game.java");
+                    gameData.setSolved(true);
                     break;
                 }
 
@@ -62,9 +65,28 @@ public class Game {
         // Womp womp womp . . . you lose
         if (attemptsLeft == 0) {
             System.out.println("Sorry, too many tries. The code was: " + secretCode);
+            gameData.setSolved(false);
         }
         
         scanner.close();
+        finalizeGameData();
+        saveGameDataToDatabase();
+    }
+
+    private void finalizeGameData() {
+        gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
+        gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        gameData.setSecretCode(secretCode);
+        gameData.setGuesses(guesser.getGuesses());
+    }
+    // Save data to database
+    public void saveGameDataToDatabase() {
+        try {
+            gameDataDAO.saveGameData(gameData);
+            System.out.println("Game data saved");
+        } catch (SQLException e) {
+            System.err.println("Error occured saving game data: " + e.getMessage());
+        }
     }
     // Method to check if guess is four nums 0 - 8
     public boolean isValidGuess(String guess) {

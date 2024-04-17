@@ -16,26 +16,30 @@ public class MyMastermind {
             // Create data-related objects:
             GameData gameData = new GameData();
             GameData.SQLiteGameDataDAO dao = new GameData.SQLiteGameDataDAO(dbPath);
-            logger.debug("GameData and SQLiteGameDataDAO objects created");
+            logger.debug("19GameData and SQLiteGameDataDAO objects created");
             // Create game instance and necessary components:
             Guesser guesser = new Guesser(scanner);
             Game game = new Game(guesser, gameData, dao);
-            logger.info("Game instance and components intitialized");
+            logger.info("23Game instance and components intitialized");
 
             // Start game
             game.startGame();
-            logger.info("Game started");
+            logger.info("27Game started");
+
+            // Logging gameData state before saving
+            // logger.debug("Saving GameData: PlayerName: {}, RoundsToSolve: {}, Solved: {}, Timestamp: {}, SecretCode: {}, Guesses: {}", 
+                // gameData.getPlayerName(), gameData.getRoundsToSolve(), gameData.isSolved(), gameData.getTimestamp(), gameData.getSecretCode(), gameData.getGuesses());
 
             // Save game data to the db
-            dao.saveGameData(gameData);
-            System.out.println("Game data saved");
-            logger.info("Game data saved successfully");
+            // dao.saveGameData(gameData);
+            // System.out.println("34Game data saved");
+            // logger.info("35Game data saved successfully");
         } catch (SQLException e) {
-            logger.error("Error occured saving game data: " + e.getMessage());
+            logger.error("37Error occured saving game data: " + e.getMessage());
         } finally {
             // Close scanner
             scanner.close();
-            logger.debug("Scanner closed");
+            logger.debug("41Scanner closed");
         }
     }
 }
