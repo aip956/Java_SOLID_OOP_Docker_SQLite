@@ -6,27 +6,32 @@ import java.sql.SQLException;
 public class Game {
     private Guesser guesser;
     private SecretKeeper secretKeeper;
-    private String secretCode;
-    private int maxAttempts;
-    private int attemptsLeft;
-    private Scanner scanner;
+    // private String secretCode;
+    // private int maxAttempts;
+    // private int attemptsLeft;
+    // private Scanner scanner;
     private GameData gameData;
     private GameData.GameDataDAO gameDataDAO;
 
 
     // class constructor
-    public Game (Guesser guesser, GameData gameData, GameData.GameDataDAO gameDataDAO) {
-        this.scanner = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        String playerName = scanner.nextLine();
-        this.secretKeeper = new SecretKeeper(this, playerName);
-        this.guesser = new Guesser(scanner);
-        this.gameData = gameData == null ? new GameData() : gameData;
+    public Game (Guesser guesser, SecretKeeper secretKeeper, GameData gameData, GameDataDAO gameDataDAO) {
+        this.guesser = guesser;
+        this.secretKeeper = secretKeeper;
+        this.gameData = gameData; 
         this.gameDataDAO = gameDataDAO;
-        this.gameData.setPlayerName(playerName);
-        this.maxAttempts = secretKeeper.maxAttempts;
-        this.attemptsLeft = secretKeeper.attemptsLeft;
-        this.secretCode = secretKeeper.secretCode;
+
+        // this.scanner = new Scanner(System.in);
+        // System.out.println("Enter your name: ");
+        // String playerName = scanner.nextLine();
+        // this.secretKeeper = new SecretKeeper(this, playerName);
+        // this.guesser = new Guesser(scanner);
+        // this.gameData = gameData == null ? new GameData() : gameData;
+        // this.gameDataDAO = gameDataDAO;
+        // this.gameData.setPlayerName(playerName);
+        // this.maxAttempts = secretKeeper.maxAttempts;
+        // this.attemptsLeft = secretKeeper.attemptsLeft;
+        // this.secretCode = secretKeeper.secretCode;
         
     }
 
@@ -72,6 +77,9 @@ public class Game {
         finalizeGameData();
         saveGameDataToDatabase();
     }
+}
+
+
 
     private void finalizeGameData() {
         gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
@@ -88,13 +96,13 @@ public class Game {
             System.err.println("Error occured saving game data: " + e.getMessage());
         }
     }
-    // Method to check if guess is four nums 0 - 8
-    public boolean isValidGuess(String guess) {
-        try {
-            int guessNum = Integer.valueOf(guess);
-            return guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-}
+    // // Method to check if guess is four nums 0 - 8
+    // public boolean isValidGuess(String guess) {
+    //     try {
+    //         int guessNum = Integer.valueOf(guess);
+    //         return guessNum >= 0 && guessNum <= 8888 && guess.length() == 4;
+    //     } catch (NumberFormatException e) {
+    //         return false;
+    //     }
+    // }
+

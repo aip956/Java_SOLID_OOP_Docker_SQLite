@@ -14,14 +14,26 @@ import java.util.List;
 
 
 public class SecretKeeper extends Player {
-    private Game game;
+    // private Game game;
 
     public String secretCode;
     private List<String> guesses;
-    public int maxAttempts = 5;
-    public int attemptsLeft = maxAttempts;
-    private GameData gameData;
-    private GameData.GameDataDAO gameDataDAO;
+    public int maxAttempts;
+    public int attemptsLeft;
+    // private GameData gameData;
+    // private GameData.GameDataDAO gameDataDAO;
+
+    public SecretKeeper() {
+        super("Secret Keeper");
+        // this.game = game;
+        // setPlayerName(playerName);
+        this.secretCode = generateRandomSecret();
+        this.guesses = new ArrayList<>();
+        this.maxAttempts = 5;
+        this.attemptsLeft = maxAttempts;
+    }
+
+    
   
 
     /* 
@@ -29,12 +41,7 @@ public class SecretKeeper extends Player {
     Have var for num tries max
 
     */ 
-    public SecretKeeper(Game game, String playerName) {
-        this.game = game;
-        setPlayerName(playerName);
-        this.secretCode = generateRandomSecret();
-        this.guesses = new ArrayList<>();
-    }
+
 
     private String generateRandomSecret() {
         try {
