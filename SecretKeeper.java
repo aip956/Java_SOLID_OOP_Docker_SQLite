@@ -14,14 +14,12 @@ import java.util.List;
 
 
 public class SecretKeeper extends Player {
-    // private Game game;
-
     public String secretCode;
     private List<String> guesses;
     public int maxAttempts;
     public int attemptsLeft;
-    // private GameData gameData;
-    // private GameData.GameDataDAO gameDataDAO;
+    private static final String VALID_GUESS_PATTERN = "[0-7]{4}";
+
 
     public SecretKeeper() {
         super("Secret Keeper");
@@ -33,17 +31,13 @@ public class SecretKeeper extends Player {
         this.attemptsLeft = maxAttempts;
     }
 
-    
-  
-
     /* 
     Remove CLI for secret and num tries
     Have var for num tries max
-
     */ 
 
-
     private String generateRandomSecret() {
+        String localSecret = "0000"; // if API fails
         try {
             URL url = new URL("https://www.random.org/integers/?num=4&min=0&max=7&col=1&base=10&format=plain&rnd=new");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -59,53 +53,64 @@ public class SecretKeeper extends Player {
     
             secretCode = response.toString().trim();
             System.out.println("Secret from API: " + secretCode);
-            // secretGenerated = true;
+            return secretCode; // Return secret code generated
         } catch (IOException e) {
-            e.printStackTrace(); // Handle error
+            System.out.println("Failed to get API secret; using local secret" + localSecret);
+            return localSecret;
         }
-        return secretCode; // Return secret code generated
     }
 
-    public String provideFeedback(String guess) {
-        if (game.isValidGuess(guess)) {
-            guesses.add(guess); // Add guess to list of guesses
-            int wellPlaced = 0;
-            int misPlaced = 0;
-            Map<Character, Integer> secretCount = new HashMap<>();
-            Map<Character, Integer> guessCount = new HashMap<>();
+    public boolean hasAttemptsLeft() {
+        return attemptsLeft > 0;
+    }
 
-            // Count well placed; populate hash
-            for (int i = 0; i < 4; i++) {
-                char secretChar = secretCode.charAt(i);
-                char guessChar = guess.charAt(i);
+    // Method to check if guess is four nums 0 - 8
+    public boolean isValidGuess(String guess) {
+        // 4 digits 0 - 7
+        return guess != null && guess.matches(VALID_GUESS_PATTERN);
+    }
 
-                if (secretChar == guessChar) {
-                    wellPlaced++;
-                }
-                else {
-                    secretCount.put(secretChar, secretCount.getOrDefault(secretChar, 0) + 1);
-                    guessCount.put(guessChar, guessCount.getOrDefault(guessChar, 0) + 1);
-                }
-            }
-
-            // Count mis-placed
-            for (char c : guessCount.keySet()) {
-                if (secretCount.containsKey(c)) {
-                    misPlaced += Math.min(secretCount.get(c), guessCount.get(c));
-                }
-            }
-            // If all pieces are well-placed, winner
-            if (wellPlaced == 4) {
-                System.out.println("Congrats! You did it! I'm SK.java");
-                // System.exit(0);
-            }
-            
-            String feedback = "Well placed pieces: " + wellPlaced + "\n";
-            feedback += "Misplaced pieces: " + misPlaced + "\n";
-            feedback += "---\n";
-            attemptsLeft--;
-            return feedback;
+    public void evaluateGuess(String guess) {
+        if (!isValidGuess(guess)) {
+            throw new IllegalArgumentException("Invalid guess");
         }
-        return "Invalid guess";
+        guesses.add(guess); // Add guess to list of guesses
+        attemptsLeft--;
+
+    }
+    
+    public String provideFeedback(String guess) {
+
+        if (!isValidGuess(guess)) {
+            return "Invalid guess; enter 4 digits, 0 - 7.";
+        }
+        int wellPlaced = 0;
+        int misPlaced = 0;
+        Map<Character, Integer> secretCount = new HashMap<>();
+        Map<Character, Integer> guessCount = new HashMap<>();
+
+        // Count well placed; populate hash
+        for (int i = 0; i < 4; i++) {
+            char secretChar = secretCode.charAt(i);
+            char guessChar = guess.charAt(i);
+
+            if (secretChar == guessChar) {
+                wellPlaced++;
+            }
+            else {
+                secretCount.put(secretChar, secretCount.getOrDefault(secretChar, 0) + 1);
+                guessCount.put(guessChar, guessCount.getOrDefault(guessChar, 0) + 1);
+            }
+        }
+
+        // Count mis-placed
+        for (char c : guessCount.keySet()) {
+            if (secretCount.containsKey(c)) {
+                misPlaced += Math.min(secretCount.get(c), guessCount.get(c));
+            }
+        }
+
+        return String.format("Well placed pieces: %d\nMisplaced pieces: %d", wellPlaced, misPlaced);
     }
 }
+
