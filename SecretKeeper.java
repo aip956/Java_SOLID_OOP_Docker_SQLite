@@ -27,8 +27,7 @@ public class SecretKeeper extends Player {
         // setPlayerName(playerName);
         this.secretCode = generateRandomSecret();
         this.guesses = new ArrayList<>();
-        this.maxAttempts = 5;
-        this.attemptsLeft = maxAttempts;
+        this.attemptsLeft = Game.getMaxAttempts();
     }
 
     /* 
@@ -59,7 +58,9 @@ public class SecretKeeper extends Player {
             return localSecret;
         }
     }
-
+    public String getSecretCode() {
+        return secretCode;
+    }
     public boolean hasAttemptsLeft() {
         return attemptsLeft > 0;
     }
@@ -77,6 +78,10 @@ public class SecretKeeper extends Player {
         guesses.add(guess); // Add guess to list of guesses
         attemptsLeft--;
 
+    }
+
+    public int getAttemptsLeft() {
+        return attemptsLeft;
     }
     
     public String provideFeedback(String guess) {
@@ -112,5 +117,6 @@ public class SecretKeeper extends Player {
 
         return String.format("Well placed pieces: %d\nMisplaced pieces: %d", wellPlaced, misPlaced);
     }
+
 }
 

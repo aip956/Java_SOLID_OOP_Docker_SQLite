@@ -4,33 +4,23 @@ import java.util.List;
 
 public class Guesser extends Player {
     private Scanner scanner;
+    private List<String> guesses;
 
     public Guesser() {
-        super("Guesser");
-        scanner = new Scanner(System.in);
+        super("");// initialize with empty name
+        this.scanner = new Scanner(System.in);
+        this.guesses = new ArrayList<>();
+        System.out.println("Please enter your name: ");
+        this.playerName = scanner.nextLine();
     }
     public String makeGuess() {
         System.out.print("Enter guess: ");
-        return scanner.nextLine();
+        String guess = scanner.nextLine();
+        guesses.add(guess);
+        return guess;
     }
     public List<String> getGuesses() {
             return new ArrayList<>(guesses); // return a copy for encapsulation
     }
 }
-//     private List<String> guesses = new ArrayList<>();
 
-//     // private String guessedCode;
-    
-//     // constructor
-//     public Guesser(Scanner scanner) {
-//         this.scanner = scanner;
-//     }
-//     // takes in the input guess
-//     public String makeGuess() {
-//         String guessedCode = scanner.nextLine();
-//         guesses.add(guessedCode);
-//         return guessedCode;
-//     }
-
-//    
-// }

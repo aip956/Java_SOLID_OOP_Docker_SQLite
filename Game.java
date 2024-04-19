@@ -7,7 +7,15 @@ public class Game {
     private Guesser guesser;
     private SecretKeeper secretKeeper;
     private GameData gameData;
-    private GameData.GameDataDAO gameDataDAO;
+    private GameDataDAO gameDataDAO;
+    private Scanner scanner;
+    private int attemptsLeft;
+    public static final int MAX_ATTEMPTS = 5;
+
+    public static int getMaxAttempts() {
+        return MAX_ATTEMPTS;
+    }
+
 
 
     // class constructor
@@ -16,14 +24,16 @@ public class Game {
         this.secretKeeper = secretKeeper;
         this.gameData = gameData; 
         this.gameDataDAO = gameDataDAO;      
+        this.scanner = new Scanner(System.in);
+        this.attemptsLeft = MAX_ATTEMPTS;
     }
 
     public void startGame() {
         // Prompts to start game
-        if (maxAttempts == attemptsLeft) {
+        if (attemptsLeft == MAX_ATTEMPTS) {
             System.out.println("Will you find the secret code?");
             System.out.println("---");
-            System.out.println("Round " + (maxAttempts - attemptsLeft));
+            System.out.println("Round " + (getMaxAttempts() - secretKeeper.getAttemptsLeft()));
         }
         // Play game; Guesser makes guess
         // Game determines if guess is valid and wins, tracks Round, determins if loses
@@ -34,7 +44,7 @@ public class Game {
                 secretKeeper.evaluateGuess(guess);
                 String feedback = secretKeeper.provideFeedback(guess);
                 System.out.println(feedback);
-                gameData.addGuess(guess);
+                // gameData.addGuess(guess);
                 if (guess.equals(secretKeeper.getSecretCode())) {
                     System.out.println("Congrats! You did it! I'm the Game.java");
                     gameData.setSolved(true);
@@ -47,26 +57,19 @@ public class Game {
 
         // Womp womp womp . . . you lose
         if (!gameData.isSolved()) {
-            System.out.println("Sorry, too many tries. The code was: " + secretCode);
+            System.out.println("Sorry, too many tries. The code was: " + secretKeeper.getSecretCode());
             gameData.setSolved(false);
         }
-        
-        scanner.close();
         finalizeGameData();
-        // saveGameDataToDatabase();
+        scanner.close();
     }
-}
-
-
 
     private void finalizeGameData() {
-        gameData.setPlayerName(guesser.getName());
-        gameData.setGuesses(secretKeeper.getGuesses());
-        // gameData.setGuesses(guesser.getGuesses());
-        // gameData.setRoundsToSolve(maxAttempts - attemptsLeft);
-        gameData.setRoundsToSolve(secretKeeper.getMaxAttempts() - secretKeeper.getAttemptsLeft());
+        gameData.setPlayerName(guesser.getPlayerName());
+        gameData.setGuesses(guesser.getGuesses());
+        gameData.setRoundsToSolve(getMaxAttempts() - secretKeeper.getAttemptsLeft());
         gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        // gameData.setSecretCode(secretCode);
+        gameData.setSecretCode(secretKeeper.getSecretCode());
         saveGameDataToDatabase();
         
     }
@@ -79,5 +82,4 @@ public class Game {
             System.err.println("Error occured saving game data: " + e.getMessage());
         }
     }
-
-
+}
