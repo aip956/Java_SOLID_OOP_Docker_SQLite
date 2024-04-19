@@ -1,24 +1,20 @@
 
 # Use the official Java 11 image as the base image
-FROM openjdk:latest
+FROM openjdk:11
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy the compiled Java file (and any required resources) from your local machine to the container
 
-COPY MyMastermind.java .
-COPY GameState.java .
+COPY . .
 
-# Compile the Java source file
-RUN javac MyMastermind.java GameState.java
+# Compile the application with all necessary dependencies
+RUN javac -cp ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/slf4j-api-1.7.32.jar" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java SQLiteGameDataDAO.java
 
-
-# Run the Java application inside the container
-
-ENTRYPOINT  ["java", "-cp", "/app", "MyMastermind"]
-CMD [ "-c", "0123", "-t", "10"]
+# Command to run the application
+CMD ["java", "-cp", ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/logback-classic-1.2.6.jar:lib/logback-core-1.2.6.jar:lib/slf4j-api-1.7.32.jar", "MyMastermind"]
 
 
-# Build by typing: docker build -t my_mastermind.image .
-# Run by typing: docker run my_mastermind.image
+# Build by typing: docker-compose up --build
+# Run by typing: docker run -it --rm my-mastermind
