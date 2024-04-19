@@ -1,3 +1,4 @@
+// MyMastermind.java
 import java.sql.SQLException;
 import java.util.Scanner;
 import org.slf4j.Logger;
@@ -14,10 +15,12 @@ public class MyMastermind {
         } else {
             System.out.println("Database path from environment: " + dbPath);
         }
+        System.out.println("Attempting to connect to the database...");
         GameDataDAO gameDataDAO = null; // Declaring outside try block
 
         try {
             gameDataDAO = new SQLiteGameDataDAO(dbPath);
+            System.out.println("DB connect success");
         } catch (SQLException e) {
             System.err.println("Database connection failed: " + e.getMessage());
             return;

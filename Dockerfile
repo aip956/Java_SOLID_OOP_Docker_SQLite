@@ -17,4 +17,5 @@ CMD ["java", "-cp", ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/logback-classic-1.2.6.ja
 
 
 # Build by typing: docker-compose up --build
+# docker-compose down to stop and remove
 # Run by typing: docker run -it --rm my-mastermind

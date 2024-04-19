@@ -1,4 +1,5 @@
-/* Data Access Object; Handles all database interactions related to GameData,
+/* SQLiteGameDataDAO.java
+Data Access Object; Handles all database interactions related to GameData,
     abstracting away the specifics of data persistence.
 */
 import java.sql.Connection;
