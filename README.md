@@ -36,6 +36,13 @@ To compile with JDBC, slf4j, loggers:
 
  `javac -cp ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/slf4j-api-1.7.32.jar" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java SQLiteGameDataDAO.java`
 
+ To compile with PostgreSQL:
+ javac -cp ".:lib/postgresql-42.7.3.jar:lib/slf4j-api-1.7.32.jar" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java PostgreSQLGameDataDAO.java
+
+To run with PostgreSQL:
+java -cp ".:lib/postgresql-42.7.3.jar:lib/logback-classic-1.2.6.jar:lib/logback-core-1.2.6.jar:lib/slf4j-api-1.7.32.jar" MyMastermind
+
+
 </br>
 
 Run file with default values:</br> `java MyMastermind`</br>
