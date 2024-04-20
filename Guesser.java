@@ -17,8 +17,9 @@ public class Guesser extends Player {
     public String makeGuess() {
         System.out.print("Enter guess: ");
         String guess = scanner.nextLine();
+        // System.out.println("Guesser21guess: " + guess);
         guesses.add(guess);
-        System.out.println("Guesser21: " + guess); // Log the addition for debugging
+        // System.out.println("Guesser22: " + guesses); // Log the addition for debugging
 
         return guess;
     }

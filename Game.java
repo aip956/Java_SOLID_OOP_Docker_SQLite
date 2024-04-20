@@ -35,7 +35,9 @@ public class Game {
             gameUI.displayMessage("Round " + (MAX_ATTEMPTS - secretKeeper.getAttemptsLeft()));  
             gameUI.displayMessage("Rounds left: " + secretKeeper.getAttemptsLeft());     
             
-            String guess = gameUI.getInput("Enter guess: ");
+            // String guess = gameUI.getInput("Enter guess: ");
+            String guess = guesser.makeGuess();
+            gameUI.displayMessage("YourGuess: " + guess);
             
             if (secretKeeper.isValidGuess(guess)) {
                 secretKeeper.evaluateGuess(guess);
@@ -62,7 +64,7 @@ public class Game {
     }
 
     private void finalizeGameData() {
-        System.out.println("65Finalizing game data, guesses: " + guesser.getGuesses());
+        // System.out.println("65Finalizing game data, guesses: " + guesser.getGuesses());
         gameData.setPlayerName(guesser.getPlayerName());
         gameData.setGuesses(guesser.getGuesses());
         gameData.setRoundsToSolve(MAX_ATTEMPTS - secretKeeper.getAttemptsLeft());

@@ -22,7 +22,7 @@ public class SQLiteGameDataDAO implements GameDataDAO {
     @Override
     public void saveGameData(GameData gameData) throws SQLException {
         String guessesString = String.join(",", gameData.getGuesses()); // Log this to check correctness
-        System.out.println("25Saving to DB, guesses: " + guessesString);
+        // System.out.println("25Saving to DB, guesses: " + guessesString);
 
         String sql = "INSERT INTO game_data (" +
             "player_name, " +
