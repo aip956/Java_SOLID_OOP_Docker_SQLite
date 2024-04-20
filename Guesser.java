@@ -18,6 +18,8 @@ public class Guesser extends Player {
         System.out.print("Enter guess: ");
         String guess = scanner.nextLine();
         guesses.add(guess);
+        System.out.println("Guesser21: " + guess); // Log the addition for debugging
+
         return guess;
     }
     public List<String> getGuesses() {

@@ -100,6 +100,6 @@ public class GameData implements Serializable {
 
     public void setGuesses(List<String> guesses) {
         this.guesses = guesses;
-        // logger.debug("102guesses: {}", guesses);
+        logger.debug("102guesses: {}", guesses);
     }
 }

@@ -14,20 +14,16 @@ import java.util.Collections;
 
 public class SQLiteGameDataDAO implements GameDataDAO {
     private Connection connection;
-    static {
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Could not init JDBC driver - driver not found");
-        }
-    }
 
     public SQLiteGameDataDAO(String dbPath) throws SQLException {
-        this.connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+        this.connection = DatabaseConnectionManager.getConnection("SQLite", dbPath);
     }
 
     @Override
     public void saveGameData(GameData gameData) throws SQLException {
+        String guessesString = String.join(",", gameData.getGuesses()); // Log this to check correctness
+        System.out.println("25Saving to DB, guesses: " + guessesString);
+
         String sql = "INSERT INTO game_data (" +
             "player_name, " +
             "rounds_to_solve, " +
@@ -43,7 +39,7 @@ public class SQLiteGameDataDAO implements GameDataDAO {
             statement.setTimestamp(4, gameData.getTimestamp());
             statement.setString(5, gameData.getSecretCode());
             // Convert the list of guesses to a single string
-            String guessesString = (gameData.getGuesses() != null) ? String.join(",", gameData.getGuesses()) : "";
+            // String guessesString = (gameData.getGuesses() != null) ? String.join(",", gameData.getGuesses()) : "";
             statement.setString(6, guessesString);
             statement.executeUpdate(); // Execute SQL query
         }

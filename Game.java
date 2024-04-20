@@ -1,5 +1,4 @@
 // Game.java
-import java.util.Scanner;
 import java.sql.Timestamp;
 import java.sql.SQLException;
 
@@ -9,15 +8,9 @@ public class Game {
     private SecretKeeper secretKeeper;
     private GameData gameData;
     private GameDataDAO gameDataDAO;
-    private Scanner scanner;
+    private GameUI gameUI;
     private int attemptsLeft;
     public static final int MAX_ATTEMPTS = 5;
-
-    public static int getMaxAttempts() {
-        return MAX_ATTEMPTS;
-    }
-
-
 
     // class constructor
     public Game (Guesser guesser, SecretKeeper secretKeeper, GameData gameData, GameDataDAO gameDataDAO) {
@@ -25,65 +18,66 @@ public class Game {
         this.secretKeeper = secretKeeper;
         this.gameData = gameData; 
         this.gameDataDAO = gameDataDAO;      
-        this.scanner = new Scanner(System.in);
+        this.gameUI = new GameUI();
         this.attemptsLeft = MAX_ATTEMPTS;
     }
 
+    public static int getMaxAttempts() {
+        return MAX_ATTEMPTS;
+    }
+
     public void startGame() {
-        // Prompts to start game
-        if (attemptsLeft == MAX_ATTEMPTS) {
-            System.out.println("Will you find the secret code?");
-            System.out.println("---");
-        }
-        // Play game; Guesser makes guess
-        // Game determines if guess is valid and wins, tracks Round, determins if loses
+        // Use gameUI for UI interactions
+        gameUI.displayMessage("Will you find the secret code?\nGood luck!");
+
         while (secretKeeper.hasAttemptsLeft()) {
-            System.out.println("---"); 
-            System.out.println("Round " + (getMaxAttempts() - secretKeeper.getAttemptsLeft()));  
-            System.out.println("Rounds left: " + secretKeeper.getAttemptsLeft());     
+            gameUI.displayMessage("---"); 
+            gameUI.displayMessage("Round " + (MAX_ATTEMPTS - secretKeeper.getAttemptsLeft()));  
+            gameUI.displayMessage("Rounds left: " + secretKeeper.getAttemptsLeft());     
             
-            String guess = guesser.makeGuess();
+            String guess = gameUI.getInput("Enter guess: ");
             
             if (secretKeeper.isValidGuess(guess)) {
                 secretKeeper.evaluateGuess(guess);
                 String feedback = secretKeeper.provideFeedback(guess);
-                System.out.println(feedback);
-                // gameData.addGuess(guess);
+                gameUI.displayMessage(feedback);
+
                 if (guess.equals(secretKeeper.getSecretCode())) {
-                    System.out.println("Congrats! You did it! I'm the Game.java");
+                    gameUI.displayMessage("Congrats! You did it!");
                     gameData.setSolved(true);
                     break;
                 }
             } else {
-                System.out.println("Wrong Input!");
+                gameUI.displayMessage("Wrong Input!");
             }
         } 
 
         // Womp womp womp . . . you lose
         if (!gameData.isSolved()) {
-            System.out.println("Sorry, too many tries. The code was: " + secretKeeper.getSecretCode());
+            gameUI.displayMessage("Sorry, too many tries. The code was: " + secretKeeper.getSecretCode());
             gameData.setSolved(false);
         }
+
         finalizeGameData();
-        scanner.close();
     }
 
     private void finalizeGameData() {
+        System.out.println("65Finalizing game data, guesses: " + guesser.getGuesses());
         gameData.setPlayerName(guesser.getPlayerName());
         gameData.setGuesses(guesser.getGuesses());
-        gameData.setRoundsToSolve(getMaxAttempts() - secretKeeper.getAttemptsLeft());
+        gameData.setRoundsToSolve(MAX_ATTEMPTS - secretKeeper.getAttemptsLeft());
         gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
         gameData.setSecretCode(secretKeeper.getSecretCode());
         saveGameDataToDatabase();
-        
+        gameUI.close();        
     }
     // Save data to database
     public void saveGameDataToDatabase() {
         try {
             gameDataDAO.saveGameData(gameData);
-            System.out.println("Game data saved");
+            gameUI.displayMessage("Game data saved");
         } catch (SQLException e) {
-            System.err.println("Error occured saving game data: " + e.getMessage());
+            gameUI.displayMessage("Error occured saving game data: " + e.getMessage());
         }
     }
 }
