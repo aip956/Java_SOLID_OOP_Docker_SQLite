@@ -1,7 +1,9 @@
 version: '3.8'
+name: my-mastermind
 
 services:
   app:
+    container_name: game
     build: .
     volumes:
       - ./data:/usr/src/app/data
@@ -13,4 +15,3 @@ services:
       - DB_FILE=/usr/src/app/data/MM_Reach.db
 
 
-# Need to add jar files
