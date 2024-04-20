@@ -1,11 +1,11 @@
 // SecretKeeper.java
+package Models;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -23,17 +23,11 @@ public class SecretKeeper extends Player {
 
     public SecretKeeper() {
         super("Secret Keeper");
-        // this.game = game;
-        // setPlayerName(playerName);
+    
         this.secretCode = generateRandomSecret();
         this.guesses = new ArrayList<>();
         this.attemptsLeft = Game.getMaxAttempts();
     }
-
-    /* 
-    Remove CLI for secret and num tries
-    Have var for num tries max
-    */ 
 
     private String generateRandomSecret() {
         String localSecret = "0000"; // if API fails

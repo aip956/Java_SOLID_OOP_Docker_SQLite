@@ -1,11 +1,15 @@
 // GameData.java
+package Models;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+// import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -20,7 +24,7 @@ public class GameData implements Serializable {
     private String playerName;
     private int roundsToSolve;
     private boolean solved;
-    private Timestamp timestamp;
+    private String formattedDate;
     private String secretCode;
     private List<String> guesses;
 
@@ -29,13 +33,14 @@ public class GameData implements Serializable {
         this.guesses = new ArrayList<>(); // Ensure list is never null
     }
 
-    public GameData(int gameID, String playerName, int roundsToSolve, boolean solved, Timestamp timestamp, 
+    public GameData(int gameID, String playerName, int roundsToSolve, boolean solved, String formattedDate, 
     String secretCode, List<String> guesses) {
         this.gameID = gameID;
         this.playerName = playerName;
         this.roundsToSolve = roundsToSolve;
         this.solved = solved;
-        this.timestamp = timestamp;
+        // this.timestamp = timestamp;
+        this.formattedDate = formattedDate;
         this.secretCode = secretCode;
         this.guesses = (guesses == null) ? new ArrayList<>() : guesses; // Safely handle null input list
     }
@@ -76,13 +81,12 @@ public class GameData implements Serializable {
         // logger.debug("75solved: {}", solved);
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public String getFormattedDate() {
+        return formattedDate;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-        // logger.debug("84timestamp: {}", timestamp);
+    public void setFormattedDate (String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
     public String getSecretCode() {

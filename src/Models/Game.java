@@ -1,7 +1,11 @@
 // Game.java
-import java.sql.Timestamp;
+package Models;
+// import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.sql.SQLException;
-
+import DAO.GameDataDAO;
+import View.GameUI;
 
 public class Game {
     private Guesser guesser;
@@ -68,7 +72,10 @@ public class Game {
         gameData.setPlayerName(guesser.getPlayerName());
         gameData.setGuesses(guesser.getGuesses());
         gameData.setRoundsToSolve(MAX_ATTEMPTS - secretKeeper.getAttemptsLeft());
-        gameData.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        // Create new datestamp
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = formatter.format(new Date());
+        gameData.setFormattedDate(formattedDate);
         gameData.setSecretCode(secretKeeper.getSecretCode());
         saveGameDataToDatabase();
         gameUI.close();        

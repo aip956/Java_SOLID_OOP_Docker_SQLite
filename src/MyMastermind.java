@@ -1,4 +1,12 @@
 // MyMastermind.java
+
+import Models.Guesser;
+import Models.SecretKeeper;
+import Models.GameData;
+import Models.Game;
+import View.GameUI;
+import DAO.GameDataDAO;
+import DAO.SQLiteGameDataDAO;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +19,7 @@ public class MyMastermind {
     public static void main(String[] args) {
         // db path to save
         String dbPath = System.getenv("DB_FILE");
-        dbPath = (dbPath == null || dbPath.isEmpty()) ? "MM_Reach.db" : dbPath;
+        dbPath = (dbPath == null || dbPath.isEmpty()) ? "src/MM_Reach.db" : dbPath;
         System.out.println("Attempting to connect to the database...");
         GameDataDAO gameDataDAO; // Declaring outside try block
 

@@ -11,3 +11,6 @@ services:
     tty: true # Allocates a pseudo-TTY
     environment:
       - DB_FILE=/usr/src/app/data/MM_Reach.db
+
+
+# Need to add jar files

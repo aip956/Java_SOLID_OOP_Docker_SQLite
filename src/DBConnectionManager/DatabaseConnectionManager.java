@@ -1,4 +1,7 @@
 // DatabaseConnectionManager.java
+
+package DBConnectionManager;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -33,3 +36,4 @@ public class DatabaseConnectionManager {
         return connection;
     }
 }
+

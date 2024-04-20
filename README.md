@@ -24,29 +24,41 @@ Guesser: Extends from Player; it inputs the guess.
 
 I've also added Dockerfile to allow a user to run my application on any system that supports Docker.
 
+Included in the game code is Logback. While I was coding it was helpful for debugging. I've kept it in the code so that if the code is extended, logging can continue to help debug.
+
 I've also added a .gitignore file to prevent certain files from being committed to the git repository. This will help keep the repository clean and focused.
 
 
 ## To run
+
+###
+Git pull?
+
 ### Command line:
 First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java GameData.java` 
 
 To compile with JDBC, slf4j, loggers:
 
 SQLite compile:
- `javac -cp ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/slf4j-api-1.7.32.jar" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameUI.java GameData.java GameDataDAO.java SQLiteGameDataDAO.java DatabaseConnectionManager.java`
+ `javac -cp ".:lib/*" DAO/*.java DBConnectionManager/*.java Models/*.java View/*.java MyMastermind.java
+`
 
-Shorter version:
+javac -cp "src:src/lib/*" src/DBConnectionManager/DatabaseConnectionManager.java src/Models/Guesser.java src/Models/SecretKeeper.java src/Models/GameData.java src/Models/Game.java src/Models/Player.java src/View/GameUI.java src/DAO/GameDataDAO.java src/DAO/SQLiteGameDataDAO.java src/MyMastermind.java
+
+shorter compile:
+javac -cp "src:src/lib/*" src/DAO/*.java src/DBConnectionManager/*.java src/Models/*.java src/View/*.java src/MyMastermind.java
+
+
+
+Shorter version in Docker:
 ` RUN `javac -cp ".:lib/*" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java SQLiteGameDataDAO.java`
 
 
- To compile with PostgreSQL:
- javac -cp ".:lib/postgresql-42.7.3.jar:lib/slf4j-api-1.7.32.jar" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java PostgreSQLGameDataDAO.java
 
 
 
-To run with PostgreSQL:
-java -cp ".:lib/postgresql-42.7.3.jar:lib/logback-classic-1.2.6.jar:lib/logback-core-1.2.6.jar:lib/slf4j-api-1.7.32.jar" MyMastermind
+
+
 
 
 </br>
@@ -58,7 +70,8 @@ Run file with default values:</br> `java MyMastermind`</br>
 
  java -cp ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/logback-classic-1.2.6.jar:lib/logback-core-1.2.6.jar:lib/slf4j-api-1.7.32.jar" MyMastermind
 
-java -cp ".:lib/*" MyMastermind
+java -cp "src:src/lib/*" MyMastermind
+
 
 
 
@@ -116,7 +129,7 @@ The addition of Docker should allow a user to run my application on any system t
 The Mastermind game requires the user to guess the secret code composed of four distinct pieces. After each guess, the user will be informed of the number of correctly placed pieces and the number of misplaced pieces. The objective is to guess the secret code in the fewest attempts possible.
 
 
-
+Does the user need to create the table if they git pull or run in Docker?
 Create db and tables
 sqlite3 your_database_name.db
 CREATE TABLE game_data (

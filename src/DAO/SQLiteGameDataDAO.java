@@ -2,12 +2,17 @@
 Data Access Object; Handles all database interactions related to GameData,
     abstracting away the specifics of data persistence.
 */
+package DAO;
+import Models.GameData;
+import DBConnectionManager.DatabaseConnectionManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+// import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -36,10 +41,8 @@ public class SQLiteGameDataDAO implements GameDataDAO {
             statement.setString(1, gameData.getPlayerName());
             statement.setInt(2, gameData.getRoundsToSolve());
             statement.setBoolean(3, gameData.isSolved());
-            statement.setTimestamp(4, gameData.getTimestamp());
+            statement.setString(4, gameData.getFormattedDate());
             statement.setString(5, gameData.getSecretCode());
-            // Convert the list of guesses to a single string
-            // String guessesString = (gameData.getGuesses() != null) ? String.join(",", gameData.getGuesses()) : "";
             statement.setString(6, guessesString);
             statement.executeUpdate(); // Execute SQL query
         }
@@ -57,7 +60,7 @@ public class SQLiteGameDataDAO implements GameDataDAO {
                 int gameID = resultSet.getInt("game_id");
                 int roundsToSolve = resultSet.getInt("rounds_to_solve");
                 boolean solved = resultSet.getBoolean("solved");
-                Timestamp timestamp = resultSet.getTimestamp("timestamp");
+                String formattedDate = resultSet.getString("timestamp");
                 String secretCode = resultSet.getString("secret_code");
                 String guessesString = resultSet.getString("guesses");
                 List<String> guesses = new ArrayList<>();
@@ -65,7 +68,7 @@ public class SQLiteGameDataDAO implements GameDataDAO {
                     String[] guessArray = guessesString.split(",");
                     Collections.addAll(guesses, guessArray);
                 }
-                GameData gameData = new GameData(gameID, playerName, roundsToSolve, solved, timestamp, secretCode, guesses);
+                GameData gameData = new GameData(gameID, playerName, roundsToSolve, solved, formattedDate, secretCode, guesses);
                 games.add(gameData);
             }
         }
@@ -84,7 +87,7 @@ public class SQLiteGameDataDAO implements GameDataDAO {
                 int gameID = resultSet.getInt("game_id");
                 String playerName = resultSet.getString("player_name");
                 int roundsToSolve = resultSet.getInt("rounds_to_solve");
-                Timestamp timestamp = resultSet.getTimestamp("timestamp");
+                String formattedDate = resultSet.getString("timestamp");
                 String secretCode = resultSet.getString("secret_code");
                 String guessesString = resultSet.getString("guesses");
                 List<String> guesses = new ArrayList<>();
@@ -92,7 +95,7 @@ public class SQLiteGameDataDAO implements GameDataDAO {
                     String[] guessArray = guessesString.split(",");
                     Collections.addAll(guesses, guessArray);
                 }
-                GameData gameData = new GameData(gameID, playerName, roundsToSolve, solved, timestamp, secretCode, guesses);
+                GameData gameData = new GameData(gameID, playerName, roundsToSolve, solved, formattedDate, secretCode, guesses);
                 games.add(gameData);
             }
         }
