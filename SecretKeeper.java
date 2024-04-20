@@ -89,6 +89,7 @@ public class SecretKeeper extends Player {
         if (!isValidGuess(guess)) {
             return "Invalid guess; enter 4 digits, 0 - 7.";
         }
+        
         int wellPlaced = 0;
         int misPlaced = 0;
         Map<Character, Integer> secretCount = new HashMap<>();

@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
-
-
-
 public class SQLiteGameDataDAO implements GameDataDAO {
     private Connection connection;
     static {

@@ -34,13 +34,16 @@ public class Game {
         if (attemptsLeft == MAX_ATTEMPTS) {
             System.out.println("Will you find the secret code?");
             System.out.println("---");
-            System.out.println("Round " + (getMaxAttempts() - secretKeeper.getAttemptsLeft()));
         }
         // Play game; Guesser makes guess
         // Game determines if guess is valid and wins, tracks Round, determins if loses
         while (secretKeeper.hasAttemptsLeft()) {
+            System.out.println("---"); 
+            System.out.println("Round " + (getMaxAttempts() - secretKeeper.getAttemptsLeft()));  
+            System.out.println("Rounds left: " + secretKeeper.getAttemptsLeft());     
+            
             String guess = guesser.makeGuess();
-            // System.out.println("GameLine28");
+            
             if (secretKeeper.isValidGuess(guess)) {
                 secretKeeper.evaluateGuess(guess);
                 String feedback = secretKeeper.provideFeedback(guess);
