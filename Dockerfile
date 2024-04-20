@@ -5,8 +5,10 @@ FROM openjdk:11
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy the compiled Java file (and any required resources) from your local machine to the container
+# Install SQLite
+RUN apt-get update && apt-get install -y sqlite3
 
+# Copy the compiled Java file (and any required resources) from your local machine to the container
 COPY . .
 
 # List to confirm all was copied
@@ -21,7 +23,7 @@ RUN javac -cp ".:lib/*" MyMastermind.java Game.java Player.java SecretKeeper.jav
 #CMD ["java", "-cp", ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/logback-classic-1.2.6.jar:lib/logback-core-1.2.6.jar:lib/slf4j-api-1.7.32.jar", "MyMastermind"]
 CMD ["java", "-cp", ".:lib/*", "MyMastermind"]
 
-# Build by typing: docker-compose up --build
+# Build multi container by typing: docker-compose up --build
 # docker-compose down to stop and remove
 # Run by typing: docker run -it --rm my-mastermind
 # docker run -it --rm mm_javareachchallenge-app bash
