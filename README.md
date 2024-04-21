@@ -1,12 +1,16 @@
 # Welcome to My Mastermind in Java
 ## Task
-This is an implementation of the Mastermind number guessing game. The user plays against the program.
+This is an implementation of the Mastermind number guessing game. The user plays against the program. It's written in Java with Object Oriented Programming and SOLID design. Game data (player name, number of rounds, solved, timestamp, secret code, and guess history) will save to an SQLite database. It's also Docker-enabled, so the user can play in the container.
 
+
+
+## Game Rules
+The Mastermind game requires the user to guess the secret code composed of four distinct pieces. After each guess, the user will be informed of the number of correctly placed pieces and the number of misplaced pieces. The objective is to guess the secret code in the fewest attempts possible.
 There are 8 pieces (numbers 0 -7), and a secret code composed of 4 distinct pieces.
 
 Typically, the user has 10 tries to guess the right pieces and sequence. After each guess, the user will be told the number of correctly placed pieces, and misplaced pieces. In this implementation, the user can enter a secret and/or the maximum number of tries.
 
-The game can be played through a command line interface (locally), or through a Docker container (requires Docker Desktop).
+
 * Once the game starts, database connection messages will display
 * Once the game ends, a game save message should display
 * Refer to the screen captures
@@ -14,19 +18,22 @@ The game can be played through a command line interface (locally), or through a 
 * The user will be told which round (starting at 0), and remaining rounds
 * Each guess must be 4 digits 0 - 7. There will be 10 chances to guess the code.
 
-## To run
+
+## Installation and Operation
+The game can be played through a command line interface (locally), or through a Docker container (requires Docker Desktop). The addition of Docker should allow a user to run my application on any system that supports Docker.
 
 ###
 Git pull the repository.</br>
 
-To run locally: In the command line,</br>
+To run locally: 
+Open the terminal and navigate to the game's directory. In the command line,</br>
 1. Compile: </br>
     * javac -cp "src:src/lib/*" src/DAO/*.java src/DBConnectionManager/*.java src/Models/*.java src/View/*.java src/MyMastermind.java</br>
 2. Run: </br>
     * java -cp "src:src/lib/*" MyMastermind</br>
 3. View data:
     * In the command line, change directory
-    * cd src/data
+        * cd src/data
     * Open the SQL shell
         * sqlite3 MM_Reach.db
     * Optional: Turn on headers
@@ -36,128 +43,115 @@ To run locally: In the command line,</br>
     * Exit the sql shell
         * .exit
 
-In the Docker container:
-* Start the Desktop Docker
-* In a command line, navigate to the directory
-* Compile and run:
-** ./play_mastermind
-* Check data:
-** Start game again, but don't play:
-*** ./play_mastermind
-** Open another terminal and enter container bash shell:
-*** docker exec -it game /bin/bash
-** change directory to the data dir
-*** cd src/data
-** Open the sql shell, MM_Reach database
-*** sqlite3 MM_Reach.db
-** Turn header view on
-*** .header on
-** View the data
-*** SELECT * FROM game_data;
-** Exit the sql shell
-*** .exit
-** Exit the container's bash shell
-*** exit
-
-
-
-
-
-
-
-
-
-
-
+To build and run in the Docker container:
+1. Start the Desktop Docker
+2. In the game directory's command line, compile and run:
+    * ./play_mastermind
+3. Check data:
+    * .Start game again, but don't play:
+      * ./play_mastermind
+    * Open another terminal and enter container bash shell:
+      * docker exec -it game /bin/bash
+    * Change directory to the data dir
+      * cd src/data
+    * Open the sql shell, MM_Reach database
+      * sqlite3 MM_Reach.db
+    * Turn header view on
+      * .header on
+    * View the data
+      * SELECT * FROM game_data;
+    * Exit the sql shell
+      * .exit
+    * Exit the container's bash shell
+      * exit
 </br>
-
-Run file with default values:</br> `java MyMastermind`</br>
- </br>
-
-
-
-
-
-
-
+</br>
+## Screen Captures
+For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).
+</br>
+</br>
+Run and play the game:</br> 
+</br>
 <img 
-src="./ScreenCaps/CLInoArgs.png"
-alt="Command Line no Arguments" 
-title="CLI no Args"
+src="./ScreenCaps/GamePlay.png"
+alt="Running locally on command line" 
+title="CLI"
 style="display: block; margin: 0 auto; max-width: 200px">
 </br>
 
-Run file with flags (input secret and/or tries):</br> `java MyMastermind -c "0234" -t 3`</br>
- </br>
+Wrong input entered!</br> 
+</br> 
 <img 
-src="./ScreenCaps/CLIwithArgs.png"
+src="./ScreenCaps/WrongInput.png"
 alt="Command Line with Arguments" 
 title="CLI with Args"
 style="display: block; margin: 0 auto; max-width: 200px">
 </br>
 
-### Via Docker:
-First compile image:</br> `docker build -t my_mastermind.image .` </br>
+Viewing data in DB Browser</br> 
  </br>
 <img 
-src="./ScreenCaps/DockerBuildImage.png"
-alt="Build the Docker Image" 
-title="Build Docker Image"
+src="./ScreenCaps/DB_Browser_Data.png"
+alt="Command Line with Arguments" 
+title="CLI with Args"
 style="display: block; margin: 0 auto; max-width: 200px">
 </br>
 
-
-
-
-Run file with default vals:</br> `docker run -it my_mastermind.image` </br>
-(NOTE: Flag -it will allow the scanner input of the guess) </br>
-Press 'Enter' after entering each guess </br>
-
-</br>
-Run file with flags (input secret and/or tries):</br>
-(NOTE: Flag -it will allow the scanner input of the guess) </br>
- `docker run -it my_mastermind.image -t 3 -c "2456"` </br>
-Press 'Enter' after entering each guess </br>
+Viewing data in the terminal</br> 
  </br>
 <img 
-src="./ScreenCaps/DockerRunwithArgs.png"
-alt="Run via Docker with Arguments" 
-title="Docker Run with Args"
+src="./ScreenCaps/LocalSQLData.png"
+alt="Command Line with Arguments" 
+title="CLI with Args"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
+</br>
+### Running in Docker:
+Build and Run Container:</br> 
+ </br>
+<img 
+src="./ScreenCaps/BuildAndRunContainer.png"
+alt="Build and Run in Docker" 
+title="Build and Run in Docker"
 style="display: block; margin: 0 auto; max-width: 200px">
 </br>
 
+Playing in Docker</br>
+</br>
+<img 
+src="./ScreenCaps/DockerGamePlay.png"
+alt="Playing in Docker" 
+title="Playing in Docker"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
 
-## Installation
-The addition of Docker should allow a user to run my application on any system that supports Docker.
+View Docker Data</br>
+</br>
+<img 
+src="./ScreenCaps/ViewDockerData.png"
+alt="View Data in Docker" 
+title="View Data in Docker"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
 
-## Game Rules
-The Mastermind game requires the user to guess the secret code composed of four distinct pieces. After each guess, the user will be informed of the number of correctly placed pieces and the number of misplaced pieces. The objective is to guess the secret code in the fewest attempts possible.
+Docker Desktop, Container</br>
+</br>
+<img 
+src="./ScreenCaps/DockerContainer.png"
+alt="View Data in Docker" 
+title="View Data in Docker"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
 
-
-Does the user need to create the table if they git pull or run in Docker?
-Create db and tables
-sqlite3 your_database_name.db
-CREATE TABLE game_data (
-    game_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    player_name TEXT,
-    rounds_to_solve INTEGER,
-    solved BOOLEAN,
-    timestamp TIMESTAMP,
-    secret_code TEXT,
-    guesses TEXT
-);
-
-to view data,
-enter SQLite interactive shell
-sqlite3 MM_Reach.db
-
-view tables:
-.tables
-
-view data:
-SELECT * FROM game_data;
-
-
+Docker Desktop, Image</br>
+</br>
+<img 
+src="./ScreenCaps/DockerImage.png"
+alt="View Data in Docker" 
+title="View Data in Docker"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
+</br>
 ## Design
 I created this in Java, using Object Oriented Programming and SOLID Principles. Creating the class structure is challenging for me, and I thought about the 
 nouns I was modelling. It's a game, with two players. I therefore created the following classes:
