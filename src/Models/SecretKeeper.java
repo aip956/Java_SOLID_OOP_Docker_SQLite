@@ -49,9 +49,11 @@ public class SecretKeeper extends Player {
             return localSecret;
         }
     }
+
     public String getSecretCode() {
         return secretCode;
-    }
+    } 
+
     public boolean hasAttemptsLeft() {
         return attemptsLeft > 0;
     }

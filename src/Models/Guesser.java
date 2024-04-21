@@ -15,14 +15,16 @@ public class Guesser extends Player {
         System.out.print("Please enter your name: ");
         this.playerName = scanner.nextLine();
     }
+
     public String makeGuess() {
         System.out.print("Enter guess: ");
         String guess = scanner.nextLine();
         guesses.add(guess);
         return guess;
     }
+
     public List<String> getGuesses() {
-            return new ArrayList<>(guesses); // return a copy for encapsulation
+        return new ArrayList<>(guesses); // return a copy for encapsulation
     }
 }
 

@@ -7,6 +7,12 @@ There are 8 pieces (numbers 0 -7), and a secret code composed of 4 distinct piec
 Typically, the user has 10 tries to guess the right pieces and sequence. After each guess, the user will be told the number of correctly placed pieces, and misplaced pieces. In this implementation, the user can enter a secret and/or the maximum number of tries.
 
 The game can be played through a command line interface (locally), or through a Docker container (requires Docker Desktop).
+* Once the game starts, database connection messages will display
+* Once the game ends, a game save message should display
+* Refer to the screen captures
+* Once the game starts, the user will be prompted to enter a name
+* The user will be told which round (starting at 0), and remaining rounds
+* Each guess must be 4 digits 0 - 7. There will be 10 chances to guess the code.
 
 ## To run
 
@@ -54,8 +60,6 @@ In the Docker container:
 *** exit
 
 
-
-` RUN `javac -cp ".:lib/*" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java SQLiteGameDataDAO.java`
 
 
 
@@ -187,10 +191,10 @@ GameUI: The GameUI handles all user interactions, including displaying messages 
 * Single Responsibility Principle: It's dedicated solely to user interface operations.
 
 #### DAO Package
-GameDataDAO: This class is an interface for data access operations related to GameData, such as saving and retrieving game data.
+GameDataDAO: This class is an interface for data access operations related to GameData, such as saving and retrieving game data. (Other game retrieval methods would be defined here, like getGamesByPlayer)
 * Interface Segregation Principle: Clients will not be forced to depend on methods they do not use.
 
-SQLiteGameDataDAO: This class implements GameDataDAO, providing specific data operations using SQLite.
+SQLiteGameDataDAO: This class implements GameDataDAO, providing specific data operations using SQLite. (Other games retrieval methods would be implemented here.)
 * Dependency Inversion Principle: It depends on the GameDataDAO abstraction, allowing for flexibility in data storage methods
 * Single Responsibility Principle: It manages the database operations specific to GameData
 

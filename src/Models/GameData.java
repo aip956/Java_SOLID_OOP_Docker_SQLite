@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-// import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ public class GameData implements Serializable {
         this.playerName = playerName;
         this.roundsToSolve = roundsToSolve;
         this.solved = solved;
-        // this.timestamp = timestamp;
         this.formattedDate = formattedDate;
         this.secretCode = secretCode;
         this.guesses = (guesses == null) ? new ArrayList<>() : guesses; // Safely handle null input list

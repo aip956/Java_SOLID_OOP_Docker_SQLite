@@ -1,5 +1,6 @@
 // Player.java
 package Models;
+
 public abstract class Player {
     protected String playerName;
     // protected String guessedCode;

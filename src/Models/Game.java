@@ -1,6 +1,5 @@
 // Game.java
 package Models;
-// import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.sql.SQLException;
@@ -63,16 +62,13 @@ public class Game {
             gameUI.displayMessage("Sorry, too many tries. The code was: " + secretKeeper.getSecretCode());
             gameData.setSolved(false);
         }
-
         finalizeGameData();
     }
 
     private void finalizeGameData() {
-        // System.out.println("65Finalizing game data, guesses: " + guesser.getGuesses());
         gameData.setPlayerName(guesser.getPlayerName());
         gameData.setGuesses(guesser.getGuesses());
         gameData.setRoundsToSolve(MAX_ATTEMPTS - secretKeeper.getAttemptsLeft());
-        // Create new datestamp
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = formatter.format(new Date());
         gameData.setFormattedDate(formattedDate);
