@@ -12,7 +12,7 @@ public class Guesser extends Player {
         super("");// initialize with empty name
         this.scanner = new Scanner(System.in);
         this.guesses = new ArrayList<>();
-        System.out.println("Please enter your name: ");
+        System.out.print("Please enter your name: ");
         this.playerName = scanner.nextLine();
     }
     public String makeGuess() {
