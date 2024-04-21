@@ -11,15 +11,12 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class SecretKeeper extends Player {
     public String secretCode;
     private List<String> guesses;
     public int maxAttempts;
     public int attemptsLeft;
     private static final String VALID_GUESS_PATTERN = "[0-7]{4}";
-
 
     public SecretKeeper() {
         super("Secret Keeper");
@@ -71,7 +68,6 @@ public class SecretKeeper extends Player {
         }
         guesses.add(guess); // Add guess to list of guesses
         attemptsLeft--;
-
     }
 
     public int getAttemptsLeft() {
@@ -109,9 +105,7 @@ public class SecretKeeper extends Player {
                 misPlaced += Math.min(secretCount.get(c), guessCount.get(c));
             }
         }
-
         return String.format("Well placed pieces: %d\nMisplaced pieces: %d", wellPlaced, misPlaced);
     }
-
 }
 

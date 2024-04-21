@@ -2,25 +2,46 @@
 ## Task
 This is an implementation of the Mastermind number guessing game. The user plays against the program.
 
-There are 8 pieces of different colors (but numbers in this case), and a secret code composed of 4 distinct pieces.
+There are 8 pieces (numbers 0 -7), and a secret code composed of 4 distinct pieces.
 
 Typically, the user has 10 tries to guess the right pieces and sequence. After each guess, the user will be told the number of correctly placed pieces, and misplaced pieces. In this implementation, the user can enter a secret and/or the maximum number of tries.
 
 
 ## Design
-I created this in Java, using Object Oriented Programming. Creating the class structure is challenging for me, and I thought about the 
+I created this in Java, using Object Oriented Programming and SOLID Principles. Creating the class structure is challenging for me, and I thought about the 
 nouns I was modelling. It's a game, with two players. I therefore created the following classes:
 
 MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
 
-Game: Starts the game. Has the Guesser create a guess, and the secretKeeper provide the feedback. It determines if the guess is valid, and if the guess wins. It tracks the Round, and indicates if too many tries are exceeded.
+#### Models Package
+Game: This class manages the game flow, including starting the game, managing the rounds, and finalizing the game data. 
+* Single Responsibility: Coordinates game logic
+* Dependency Inversion Principle: Relies on abstractions by interacting with the Guesser, SecretKeeper, GameData, and GameDataDAO interfaces rather than concrete implementations
 
-Player: Abstract class; SecretKeeper and Guesser will extend from Player. They will both access the guessedCode attribute, and the abstract class allows definition and sharing of methods/attributes. The subclasses are inheriting from solely one class in this case, and the makeGuess method should be the default implementation, so an abstract class seemed suitable. 
+Player: The Player is an abstract class for players. SecretKeeper and Guesser will extend from Player.  
+* Open/Closed Principle: It's easily extendable to add more player types without modifying existing code.
+* Abstraction: It abstracts player details, providing a base for specific player types.
 
-SecretKeeper: Extends from Player; it determines if a secret and/or max attempts was input in args. If not, it creates a secret and/or defaults the attempts. It provides the feedback (well-placed and misplaced pieces) to the Guesser.
+SecretKeeper: The SecretKeeper generates and maintains the secret code, evaluates guesses, and provides feedback. It extends from Player. 
+* Single Responsibility Principle: Focused on maintaining and validating the secret code.
+* Dependency Inversion Principle: It uses Player as a base class, promoting use of abstractions over concrete classes.
 
-Guesser: Extends from Player; it inputs the guess.
+Guesser: The Guesser represents the player making guesses against the secret code. It extends from Player; it inputs the guess.
+* Open/Closed Principle: New guessing strategies can be added without modifying existing code by extending this class.
+* Liskov Substitution Principle: As a subclass of Player, it can be used anywhere a Player is expected without affecting the behavior negatively.
 
+GameData: The GameData stores the relevant data about a game session, such as player name, guesses, and outcome.
+* Single Responsibility Principle: It's solely responsible for holding and transferring game data.
+* Encapsulation: It keeps data safe from unauthorized access, exposing only necessary parts through methods
+
+
+#### View Package
+GameUI: The GameUI handles all user interactions, including displaying messages and capturing user input.
+* Single Responsibility Principle: It's dedicated solely to user interface operations.
+
+#### DAO Package
+GameDataDAO: This class is an interface for data access operations related to GameData, such as saving and retrieving game data.
+* Interface Segregation Principle: Clients will not be forced to depend on methods they do not use.
 
 I've also added Dockerfile to allow a user to run my application on any system that supports Docker.
 
@@ -60,11 +81,14 @@ docker exec -it game /bin/bash
 cd src/data
 ##### Open the sql shell, MM_Reach database
 sqlite3 MM_Reach.db
+
+Turn header view on
+.header on
 ##### View the data
 SELECT * FROM game_data;
 ##### Exit the sql shell
 .exit
-##### Exit the container's bash shell
+Exit the container's bash shell
 exit
 
 
