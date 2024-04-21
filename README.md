@@ -35,22 +35,40 @@ I've also added a .gitignore file to prevent certain files from being committed 
 Git pull?
 
 ### Command line:
-First compile:</br> `javac Game.java MyMastermind.java Player.java SecretKeeper.java Guesser.java GameData.java` 
+First compile:</br> 
 
 To compile with JDBC, slf4j, loggers:
 
 SQLite compile:
- `javac -cp ".:lib/*" DAO/*.java DBConnectionManager/*.java Models/*.java View/*.java MyMastermind.java
-`
 
-javac -cp "src:src/lib/*" src/DBConnectionManager/DatabaseConnectionManager.java src/Models/Guesser.java src/Models/SecretKeeper.java src/Models/GameData.java src/Models/Game.java src/Models/Player.java src/View/GameUI.java src/DAO/GameDataDAO.java src/DAO/SQLiteGameDataDAO.java src/MyMastermind.java
 
-shorter compile:
 javac -cp "src:src/lib/*" src/DAO/*.java src/DBConnectionManager/*.java src/Models/*.java src/View/*.java src/MyMastermind.java
 
-
+Run:
+java -cp "src:src/lib/*" MyMastermind
 
 Shorter version in Docker:
+./play_mastermind
+
+Check data:
+Start game again, but don't play:
+./play_mastermind
+
+##### Enter container bash shell:
+docker exec -it game /bin/bash
+##### Change directory to the data dir
+cd src/data
+##### Open the sql shell, MM_Reach database
+sqlite3 MM_Reach.db
+##### View the data
+SELECT * FROM game_data;
+##### Exit the sql shell
+.exit
+##### Exit the container's bash shell
+exit
+
+
+
 ` RUN `javac -cp ".:lib/*" MyMastermind.java Game.java Player.java SecretKeeper.java Guesser.java GameData.java GameDataDAO.java SQLiteGameDataDAO.java`
 
 
@@ -65,12 +83,9 @@ Shorter version in Docker:
 
 Run file with default values:</br> `java MyMastermind`</br>
  </br>
- java -cp ".:lib/sqlite-jdbc-3.45.3.0.jar" MyMastermind
 
 
- java -cp ".:lib/sqlite-jdbc-3.45.3.0.jar:lib/logback-classic-1.2.6.jar:lib/logback-core-1.2.6.jar:lib/slf4j-api-1.7.32.jar" MyMastermind
 
-java -cp "src:src/lib/*" MyMastermind
 
 
 
