@@ -12,6 +12,6 @@ services:
     stdin_open: true # Hold the stdin open
     tty: true # Allocates a pseudo-TTY
     environment:
-      - DB_FILE=/usr/src/app/data/MM_Reach.db
+      - DB_FILE=/usr/src/app/src/data/MM_Reach.db
 
 

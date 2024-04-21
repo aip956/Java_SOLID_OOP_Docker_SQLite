@@ -19,7 +19,7 @@ public class MyMastermind {
     public static void main(String[] args) {
         // db path to save
         String dbPath = System.getenv("DB_FILE");
-        dbPath = (dbPath == null || dbPath.isEmpty()) ? "src/MM_Reach.db" : dbPath;
+        dbPath = (dbPath == null || dbPath.isEmpty()) ? "src/data/MM_Reach.db" : dbPath;
         System.out.println("Attempting to connect to the database...");
         GameDataDAO gameDataDAO; // Declaring outside try block
 
