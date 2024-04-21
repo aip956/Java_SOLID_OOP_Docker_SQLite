@@ -197,7 +197,25 @@ DatabaseConnectionManager: This class manages database connections, ensuring a s
 * Single Responsiblity Principle: It centralizes the management of database connections, separating it from other database operations
 * Singleton Patter: It ensures that there is a single instance of the connection, reused throughout the application
 
+SOLID:
+Single Responsibility Principle
+    * A class should have only one job/responsibility
+Open-Closed Principle
+    * Entities (classes, functions, etc.) should be open for extension but closed for modification
+Liskov Sustitution Principle
+    * Objects of a superclass should be replaceable with objects of subclasses
+Interface Segregation Principle
+    * Clients should not be forced to depend on interfaces they don't use
+Dependency Inversion Principle
+    * High-level modules should not depend on low-level modules; both should depend on abstractions
 
+OOP:
+Abstraction
+    * Hide implementation details
+Inheritance
+    * 
+Polymorphism
+Encapsulation
 
 I've also added Dockerfile to allow a user to run my application on any system that supports Docker.
 
