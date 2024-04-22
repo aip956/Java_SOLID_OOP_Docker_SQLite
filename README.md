@@ -217,3 +217,5 @@ I've also added a .gitignore file to prevent certain files from being committed 
 ## Future improvements
 * Research other databases: I could use Mockito to generate data and test more robust databases (e.g. Postgres, MySQL, etc.)
 * Add an AI Player: I'd create a new AIPlayer class that extends Player. The core of the AIPlayer will be a method that generates the guesses. I'd then modify the Game class
+* JUnit tesing: Write and execute automated tests for models, game logic, DAO implementations, integration.
+* Implement getGamesBy____ (Player, solved, etc.). This could be used for showing player and solve rate statistics. 
