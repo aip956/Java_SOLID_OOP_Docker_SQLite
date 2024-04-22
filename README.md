@@ -164,7 +164,6 @@ DatabaseConnectionManager: This class manages database connections, ensuring a s
 #### SOLID Design Principles:
 While my game design aims to be SOLID, I also needed to balance simplicity and scope. For example, 
 
-
 Single Responsibility Principle
 * A class should have only one job/responsibility
 * However, some of my classes take on additional responsibilities to avoid excessive fragmentation and over-complication.
