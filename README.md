@@ -50,7 +50,8 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 
 ### To build and run in the Docker container:
 1. Start the Desktop Docker
-2. In the game directory's command line, compile and run:
+2. In the game directory's command line, edit script access, compile and run:
+    * chmod +x ./play_mastermind
     * ./play_mastermind
 3. Check data:
     * .Start game again, but don't play:
@@ -205,6 +206,8 @@ Java:
 
 Docker:
 * I've added Dockerfile to allow a user to run my application on any system that supports Docker.
+  * Dockerfile: Defines the environment, dependencies, and necessary commands
+  * Although the game runs in a single container, I have a docker-compose.yaml which simplifies and centralizes the configurations, making it easier to scale the application (even within one container). It also allows starting, stopping and rebuilding with simple commands (e.g. docker-compse up, docker-compse down).
 
 Database
 * I chose SQLite for the database. I assumed the data volume would be low, and the data is fairly structured.
