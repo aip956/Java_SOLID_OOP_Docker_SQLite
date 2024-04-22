@@ -197,28 +197,43 @@ DatabaseConnectionManager: This class manages database connections, ensuring a s
 * Single Responsiblity Principle: It centralizes the management of database connections, separating it from other database operations
 * Singleton Patter: It ensures that there is a single instance of the connection, reused throughout the application
 
-SOLID:
+#### SOLID Design Principles:
 Single Responsibility Principle
-    * A class should have only one job/responsibility
+* A class should have only one job/responsibility
+
 Open-Closed Principle
-    * Entities (classes, functions, etc.) should be open for extension but closed for modification
+* Entities (classes, functions, etc.) should be open for extension but closed for modification
+
 Liskov Sustitution Principle
-    * Objects of a superclass should be replaceable with objects of subclasses
+* Objects of a superclass should be replaceable with objects of subclasses
+
 Interface Segregation Principle
-    * Clients should not be forced to depend on interfaces they don't use
+* Clients should not be forced to depend on interfaces they don't use
+
 Dependency Inversion Principle
-    * High-level modules should not depend on low-level modules; both should depend on abstractions
+* High-level modules should not depend on low-level modules; both should depend on abstractions
 
-OOP:
+#### OOP Principles:
 Abstraction
-    * Hide implementation details
+* Hide implementation details
+
 Inheritance
-    * 
+* Allows one object to acquire the properties and methods of another
+
 Polymorphism
+* Allows an inherited object to have different method implementations
+
 Encapsulation
+* Each object should control its own state
 
-I've also added Dockerfile to allow a user to run my application on any system that supports Docker.
+#### Other:
+Docker:
+* I've added Dockerfile to allow a user to run my application on any system that supports Docker.
 
-Included in the game code is Logback. While I was coding it was helpful for debugging. I've kept it in the code so that if the code is extended, logging can continue to help debug.
+Database
+* I chose SQLite for the database. I assumed the data volume would be low, and the data is fairly structured.
+
+Logging
+* Included in the game code is Logback. While I was coding it was helpful for debugging. I've kept it in the code so that if the code is extended, logging can continue to help debug.
 
 I've also added a .gitignore file to prevent certain files from being committed to the git repository. This will help keep the repository clean and focused.
