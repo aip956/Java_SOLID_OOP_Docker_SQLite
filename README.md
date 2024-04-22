@@ -3,7 +3,7 @@
 This project implementats the classic Mastermind number guessing game. The user plays against the program. Read more about it here: 
 * https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
-It's written in Java with Object Oriented Programming and SOLID design. Game data (player name, number of rounds, solved, timestamp, secret code, and guess history) will save to an SQLite database. It's also Docker-enabled, so the user can play in the container.
+It's written in Java with Object Oriented Programming and (mostly) SOLID design. Game data (player name, number of rounds, solved, timestamp, secret code, and guess history) will save to an SQLite database. It's also Docker-enabled, so the user can play in the container.
 
 ## Game Rules
 The Mastermind game requires the user to guess the secret code composed of four distinct pieces. After each guess, the user will be informed of the number of correctly placed pieces and the number of misplaced pieces. The objective is to guess the secret code in the fewest attempts possible. There are 8 pieces (numbers 0 -7), and a secret code composed of 4 distinct pieces.
@@ -159,23 +159,33 @@ SQLiteGameDataDAO: This class implements GameDataDAO, providing specific data op
 #### DBConnectionManagerPackage
 DatabaseConnectionManager: This class manages database connections, ensuring a single active connection or creating a new one as needed
 * Single Responsiblity Principle: It centralizes the management of database connections, separating it from other database operations
-* Singleton Patter: It ensures that there is a single instance of the connection, reused throughout the application
+* Singleton Pattern: It ensures that there is a single instance of the connection, reused throughout the application
 
 #### SOLID Design Principles:
+While my game design aims to be SOLID, I also needed to balance simplicity and scope. For example, 
+
+
 Single Responsibility Principle
 * A class should have only one job/responsibility
+* However, some of my classes take on additional responsibilities to avoid excessive fragmentation and over-complication.
+* Game handles the game loop, processing guesses, interfacing with GameUI; it mixes game logic with user interaction. 
 
 Open-Closed Principle
 * Entities (classes, functions, etc.) should be open for extension but closed for modification
+* However, some of my classes also are not closed to modification; this is also for simplicity.
+* Adding new players might change how the Game class operates.
 
 Liskov Sustitution Principle
 * Objects of a superclass should be replaceable with objects of subclasses
+* However, subclasses of Player (e.g. AIPlayer) might not be used interchangeably without the Game class knowing the differences.
 
 Interface Segregation Principle
 * Clients should not be forced to depend on interfaces they don't use
+* However, some interfaces implementations do not use all methods
 
 Dependency Inversion Principle
 * High-level modules should not depend on low-level modules; both should depend on abstractions
+* However, a high-level module (Game) might depend on low-level ones (e.g. Guesser, SQLiteGameDataDAO) rather than abstractions
 
 #### OOP Principles:
 Abstraction
@@ -204,3 +214,7 @@ Logging
 * Included in the game code is Logback. While I was coding it was helpful for debugging. I've kept it in the code so that if the code is extended, logging can continue to help debug.
 
 I've also added a .gitignore file to prevent certain files from being committed to the git repository. This will help keep the repository clean and focused.
+
+## Future improvements
+* Research other databases: I could use Mockito to generate data and test more robust databases (e.g. Postgres, MySQL, etc.)
+* Add an AI Player: I'd create a new AIPlayer class that extends Player. The core of the AIPlayer will be a method that generates the guesses. I'd then modify the Game class
