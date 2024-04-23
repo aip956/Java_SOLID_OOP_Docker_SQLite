@@ -121,9 +121,8 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 
 ## Design
 
-I created this in Java, using Object Oriented Programming and SOLID Principles. Creating the class structure is challenging for me, and I thought about the nouns I was modelling. It's a game, with two players. I therefore created the following classes:
+I created this in Java, aspiring to use Object Oriented Programming and SOLID Principles. Creating the class structure is challenging for me, and I thought about the nouns I was modelling. 
 
-MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
 
 #### Unified Modeling Language Diagram
 ![UML](./UML/Mastermind.png)
