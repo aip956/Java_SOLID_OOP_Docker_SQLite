@@ -73,7 +73,7 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 </br>
 </br>
 ## Screen Captures
-For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).
+**For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).**
 </br>
 </br>
 
@@ -125,7 +125,7 @@ I created this in Java, using Object Oriented Programming and SOLID Principles. 
 MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
 
 #### UML
-
+![UML](./UML/Mastermind.png)
 
 #### Models Package
 Game: This class manages the game flow, including starting the game, managing the rounds, and finalizing the game data. 
