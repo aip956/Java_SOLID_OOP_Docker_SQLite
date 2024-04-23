@@ -35,7 +35,7 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 1. Enable the script (1st time): </br>
     * chmod +x ./play_LocalMM.sh</br>
 1. Run: </br>
-    * java -cp "src:src/lib/*" MyMastermind</br>
+    * ./play_LocalMM.sh</br>
 2. View data:
     * In the command line, change directory
         * cd src/data
@@ -124,7 +124,7 @@ I created this in Java, using Object Oriented Programming and SOLID Principles. 
 
 MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
 
-#### UML
+#### Unified Modeling Language Diagram
 ![UML](./UML/Mastermind.png)
 
 #### Models Package
