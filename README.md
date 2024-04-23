@@ -8,7 +8,7 @@ It's written in Java with Object Oriented Programming and (mostly) SOLID design.
 ## Game Rules
 The Mastermind game requires the user to guess the secret code composed of four distinct pieces. After each guess, the user will be informed of the number of correctly placed pieces and the number of misplaced pieces. The objective is to guess the secret code in the fewest attempts possible. There are 8 pieces (numbers 0 -7), and a secret code composed of 4 distinct pieces.
 
-Typically, the user has 10 tries to guess the right pieces and sequence. After each guess, the user will be told the number of correctly placed pieces, and misplaced pieces. (For brevity, my screen captures have a 10-try maximum.)
+Typically, the user has 10 tries to guess the right pieces and sequence. After each guess, the user will be told the number of correctly placed pieces, and misplaced pieces. (For brevity, my screen captures have a 5-try maximum.)
 
 
 * Once the game starts, database connection messages will display
