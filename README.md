@@ -50,10 +50,11 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 
 ### To build and run in the Docker container:
 1. Start the Desktop Docker
-2. In the game directory's command line, enable script access, compile and run:
+2. In the game directory's command line , enable script access(1st time):
     * chmod +x ./play_DockerMM.sh
-    * ./play_DockerMM.sh
-3. Check data:
+3. Compile / Run
+    * ./play_DockerMM.sh 
+4. Check data:
     * .Start game again, but don't play:
       * ./play_DockerMM.sh
     * Open another terminal and enter container bash shell:
