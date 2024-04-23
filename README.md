@@ -72,7 +72,7 @@ Open the terminal and navigate to the game's directory. In the command line,</br
       * exit
 </br>
 </br>
-## Screen Captures
+## Screen Captures</br>
 **For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).**
 </br>
 </br>
