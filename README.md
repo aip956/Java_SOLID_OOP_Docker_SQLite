@@ -226,4 +226,4 @@ I've also added a .gitignore file to prevent certain files from being committed 
 * Add an AI Player: I'd create a new AIPlayer class that extends Player. The core of the AIPlayer will be a method that generates the guesses. I'd then modify the Game class
 * JUnit tesing: Write and execute automated tests for models, game logic, DAO implementations, integration.
 * Implement getGamesBy____ (Player, solved, etc.). This could be used for showing player and solve rate statistics. 
-* Add command line flag capability so that the player can indicate if they wish to display the secret at the beginning of the game for debugging purposes
+* Add command line flag capability so that the player can indicate if they wish to display the secret at the beginning of the game for debugging purposes.
