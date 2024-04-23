@@ -22,11 +22,15 @@ Typically, the user has 10 tries to guess the right pieces and sequence. After e
 ## Installation and Operation
 The game can be played through a command line interface (locally), or through a Docker container (requires Docker Desktop). The addition of Docker should allow a user to run my application on any system that supports Docker.
 
-### System Requirements
+
+Requirements
 * Java; to check if you have it installed, in the terminal:
-    * java -version
-      * This will display the Java version if installed
-    * If not installed, you can install here: https://www.java.com/en/
+  * java -version
+    * This will display the Java version if installed
+  * If not installed, you can install here: https://www.java.com/en/
+* Docker Desktop; this application manages containerization. To check if Docker is installed, in the terminal:
+  * docker --version
+  * If not installed, you can download it here: https://www.docker.com/get-started/
 
 Copy the repository:
 * git clone https://github.com/aip956/MM_Reach.git
@@ -107,7 +111,7 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 ![Build and Run Container](./ScreenCaps/BuildAndRunContainer.png)
 </br>
 
-#### Playing in Docker:</br> 
+#### Playing in Docker:
 ##### After building the container, game play is the same as running locally 
 </br>
 
