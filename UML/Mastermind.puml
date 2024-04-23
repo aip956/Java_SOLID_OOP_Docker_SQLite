@@ -1,0 +1,81 @@
+@startuml
+' Define a title for the diagram
+title Mastermind Game Class Diagram
+
+' Define class Player with its attributes and methods
+abstract class Player {
+    - playerName: String
+    + getPlayerName(): String
+}
+
+' Define class Guesser that extends Player
+class Guesser {
+    - guesses: List<String>
+    - scanner: Scanner
+    + makeGuess(): String
+    + getGuesses(): List<String>
+}
+Guesser --|> Player
+
+' Define class SecretKeeper that extends Player
+class SecretKeeper {
+    - secretCode: String
+    - maxAttempts: int
+    - attemptsLeft: int
+    - guesses: List<String>
+    + isValidGuess(guess: String): boolean
+    + evaluateGuess(guess: String): void
+    + provideFeedback(guess: String): String
+    + getSecretCode(): String
+}
+SecretKeeper --|> Player
+
+' Define class GameData with its attributes and methods
+class GameData {
+    - gameID: int
+    - playerName: String
+    - roundsToSolve: int
+    - solved: boolean
+    - formattedDate: String
+    - secretCode: String
+    - guesses: List<String>
+    + setPlayerName(name: String): void
+    + getPlayerName(): String
+    + setSolved(solved: boolean): void
+    + isSolved(): boolean
+    + setGuesses(guesses: List<String>): void
+    + getGuesses(): List<String>
+}
+
+' Define class Game with its relationships
+class Game {
+    - guesser: Guesser
+    - secretKeeper: SecretKeeper
+    - gameData: GameData
+    - gameDataDAO: GameDataDAO
+    + startGame(): void
+    + finalizeGameData(): void
+}
+Game "1" *-- "1" Guesser : has >
+Game "1" *-- "1" SecretKeeper : has >
+Game "1" *-- "1" GameData : uses >
+Game "1" *-- "1" GameDataDAO : data access >
+
+' Define the GameDataDAO interface and its implementation SQLiteGameDataDAO
+interface GameDataDAO {
+    + saveGameData(gameData: GameData): void
+    + getGamesByPlayer(playerName: String): List<GameData>
+    + getGamesBySolved(solved: boolean): List<GameData>
+}
+
+class SQLiteGameDataDAO {
+    - connection: Connection
+    + saveGameData(gameData: GameData): void
+    + getGamesByPlayer(playerName: String): List<GameData>
+    + getGamesBySolved(solved: boolean): List<GameData>
+}
+SQLiteGameDataDAO ..|> GameDataDAO
+
+@enduml
+
+'/ To create the uml: java -jar plantuml-1.2024.4.jar Mastermind.puml

@@ -119,9 +119,13 @@ For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).
 </br>
 
 ## Design
+
 I created this in Java, using Object Oriented Programming and SOLID Principles. Creating the class structure is challenging for me, and I thought about the nouns I was modelling. It's a game, with two players. I therefore created the following classes:
 
 MyMastermind: Contains the main class; creates a new instance of the Game and starts the game by invoking the startGame method.
+
+#### UML
+
 
 #### Models Package
 Game: This class manages the game flow, including starting the game, managing the rounds, and finalizing the game data. 
