@@ -32,11 +32,11 @@ Change into the cloned repository
 
 ### To run locally: 
 Open the terminal and navigate to the game's directory. In the command line,</br>
-1. Compile: </br>
-    * javac -cp "src:src/lib/*" src/DAO/*.java src/DBConnectionManager/*.java src/Models/*.java src/View/*.java src/MyMastermind.java</br>
-2. Run: </br>
+1. Enable the script (1st time): </br>
+    * chmod +x ./play_LocalMM.sh</br>
+1. Run: </br>
     * java -cp "src:src/lib/*" MyMastermind</br>
-3. View data:
+2. View data:
     * In the command line, change directory
         * cd src/data
     * Open the SQL shell
@@ -51,11 +51,11 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 ### To build and run in the Docker container:
 1. Start the Desktop Docker
 2. In the game directory's command line, edit script access, compile and run:
-    * chmod +x ./play_mastermind
-    * ./play_mastermind
+    * chmod +x ./play_DockerMM.sh
+    * ./play_DockerMM.sh
 3. Check data:
     * .Start game again, but don't play:
-      * ./play_mastermind
+      * ./play_DockerMM.sh
     * Open another terminal and enter container bash shell:
       * docker exec -it game /bin/bash
     * Change directory to the data dir
@@ -226,3 +226,4 @@ I've also added a .gitignore file to prevent certain files from being committed 
 * Add an AI Player: I'd create a new AIPlayer class that extends Player. The core of the AIPlayer will be a method that generates the guesses. I'd then modify the Game class
 * JUnit tesing: Write and execute automated tests for models, game logic, DAO implementations, integration.
 * Implement getGamesBy____ (Player, solved, etc.). This could be used for showing player and solve rate statistics. 
+* Add command line flag capability so that the player can indicate if they wish to display the secret at the beginning of the game for debugging purposes

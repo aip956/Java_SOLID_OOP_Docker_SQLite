@@ -13,7 +13,7 @@ public class Game {
     private GameDataDAO gameDataDAO;
     private GameUI gameUI;
     private int attemptsLeft;
-    public static final int MAX_ATTEMPTS = 5;
+    public static final int MAX_ATTEMPTS = 10;
 
     // class constructor
     public Game (Guesser guesser, SecretKeeper secretKeeper, GameData gameData, GameDataDAO gameDataDAO) {

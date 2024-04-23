@@ -42,7 +42,7 @@ public class SecretKeeper extends Player {
             reader.close();
     
             secretCode = response.toString().trim();
-            System.out.println("Secret from API: " + secretCode);
+            // System.out.println("Secret from API: " + secretCode);
             return secretCode; // Return secret code generated
         } catch (IOException e) {
             System.out.println("Failed to get API secret; using local secret" + localSecret);
