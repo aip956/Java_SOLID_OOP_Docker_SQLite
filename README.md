@@ -73,7 +73,7 @@ Open the terminal and navigate to the game's directory. In the command line,</br
 </br>
 </br>
 ## Screen Captures</br>
-For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).
+__For the sake of brevity, I limited the maximum attempts to 5 (instead of 10).__
 
 
 #### Run and play the game locally using the command line:</br> 
